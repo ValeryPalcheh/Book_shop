@@ -9,16 +9,14 @@
     <table border="1">
         <tr>
             <th>ID</th>
-            <th>Название книги</th>
-            <th>Цена</th>
-            <th>Ссылка на книгу</th>
+            <th>ФИО</th>
+            <th>Ссылка на автора</th>
         </tr>
         {% for obj in object_list %}
         <tr>
             <th>{{ obj.id }}</th>
-            <th>{{ obj.title }}</th>
-            <th>{{ obj.price }} BYN</th>
-            <th><a href="/book-list-det/{{obj.id}}">view</a></th>   
+            <th>{{ obj.name }}</th>
+            <th><a href="/author-det/{{obj.id}}">view</a></th>   
         </tr>
         {% endfor %}
 </body>

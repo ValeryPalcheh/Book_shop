@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ object.id }}</title>
+</head>
+<body>
+<h1>Автор {{object.id}}</h1>
+<ul>
+    <li><b>ФИО автора</b>: {{ object.name }}</li>
+    <li><b>Биография</b>: {{ object.bio }}</li>
+</ul>
+
+{% if object.authors.all %}
+    <h2>Книги автора:</h2>
+    {% for book in object.authors.all %}
+        <ul>
+            <li>{{ book.title }}</li>
+        </ul>     
+    {% endfor %}
+{% else %}
+<h3>Нет книг у автора</h3>
+
+{% endif %}
+    
+<a href="/book-create/">Добавить книгу</a>
+
+  
+</body>
+</html>

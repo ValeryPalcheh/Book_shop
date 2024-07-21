@@ -2,12 +2,12 @@ from django.db import models
 
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+#    last_name = models.CharField(max_length=100)
     bio = models.TextField(blank=True)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.name}'
 
 
 class Series(models.Model):
@@ -35,10 +35,10 @@ class Publisher(models.Model):
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=200)
     cover_image = models.ImageField(upload_to='covers/')  # Папка для изображений обложек
     price = models.DecimalField(max_digits=10, decimal_places=2)  # Цена книги
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="books")
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="authors")
     series = models.ForeignKey(Series, on_delete=models.CASCADE, blank=True, null=True)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     publication_year = models.PositiveIntegerField()  # Год издания
@@ -58,3 +58,4 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+#db.sqlite3
