@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Название книги</th>
+            <th>Цена</th>
+            <th>Ссылка на книгу</th>
+        </tr>
+        {% for obj in object_list %}
+        <tr>
+            <th>{{ obj.id }}</th>
+            <th>{{ obj.title }}</th>
+            <th>{{ obj.price }}</th>
+            <th><a href="/book-list-det/{{obj.id}}">view</a></th>   
+        </tr>
+        {% endfor %}
+</body>
+</html>
