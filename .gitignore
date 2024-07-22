@@ -162,7 +162,7 @@ cython_debug/
 #.idea/
 
 
-/media
-.media
-media
+/media/
+/static/
+*.pyc
 
