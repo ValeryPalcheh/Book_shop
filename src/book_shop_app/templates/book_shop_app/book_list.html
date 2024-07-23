@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Название книги</th>
+            <th>Цена</th>
+            <th>Подробности</th>
+            <th>Изменить книгу</th>
+            <th>Удалить книгу</th>
+        </tr>
+        {% for obj in object_list %}
+        <tr>
+            <th>{{ obj.id }}</th>
+            <th>{{ obj.title }}</th>
+            <th>{{ obj.price }} BYN</th>
+            <th><a href="/book-list-det-classbv/{{obj.id}}">перейти</a></th>  
+            <th><a href="/book-update-classbv/{{obj.id}}">перейти</a></th> 
+            <th><a href="/book-delete-classbv/{{obj.id}}">перейти</a></th>
+        </tr>
+        {% endfor %}
+</body>
+</html>
