@@ -28,10 +28,10 @@ class BookCreate(generic.CreateView):
         context['page_title'] = "Создание новой книги:"
         return context
     # отправка по эл.почтe о заказе менеджеру
-    def get_success_url(self) -> str:
-        url = super().get_success_url()
-        utils.send_email(address=manager_address, text=f'Order # {self.object.pk} was created')
-        return url
+    # def get_success_url(self) -> str:
+    #     url = super().get_success_url()
+    #     utils.send_email(address=manager_address, text=f'Order # {self.object.pk} was created')
+    #     return url
 
 class BookUpdate(generic.UpdateView):
     model = models.Book
