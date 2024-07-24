@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Биография</th>
+            <th>Редактирование</th>
+            <th>Удаление автора</th>
+        </tr>
+        {% for obj in object_list %}
+        <tr>
+            <th>{{ obj.id }}</th>
+            <th>{{ obj.name }}</th>
+            <th><a href="/author-list-det-classbv/{{obj.id}}">перейти</a></th>
+            <th><a href="/author-update-classbv/{{obj.id}}">перейти</a></th>
+            <th><a href="/author-delete-classbv/{{obj.id}}">перейти</a></th>   
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Добавить:</h2>
+    <a href="/author-create-classbv/">Автора</a><br>
+</body>
+</html>

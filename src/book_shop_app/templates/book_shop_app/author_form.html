@@ -6,14 +6,11 @@
     <title>{{ page_title }}</title>
 </head>
 <body>
+    <h1>{{ page_title }}</h1>
 <form action="" method="post">
     {% csrf_token %}
-    <input type="text" name="title" maxlength="200" required><br>
-    <select name="author" id="">       
-        {% for author in authors %}
-        <option value="{{ author.pk }}">{{ author.name }}</option>
-        {% endfor %}
-    </select><br>
+    {{ form }}
+    
     <button type="submit">save</button>
 
 
@@ -21,3 +18,4 @@
         
 </body>
 </html>
+

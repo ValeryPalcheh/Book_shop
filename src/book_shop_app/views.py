@@ -5,11 +5,6 @@ from . import models, utils
 from django.views import generic
 # Create your views here.
 
-def index(request):
-    return HttpResponse("Hello, world!")
-
-def about(request):
-    return HttpResponse("About us")
 
 class BookList(generic.ListView):
     model = models.Book
@@ -43,29 +38,128 @@ class BookDelete(generic.DeleteView):
     model = models.Book
     success_url = "/book-list-classbv/"
 
+class AuthorList(generic.ListView):
+    model = models.Author
+
+class AuthorListDetail(generic.DetailView):
+    model = models.Author
+
+class AuthorCreate(generic.CreateView):
+    model = models.Author
+    fields = ['name', 'bio',]
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Создание нового автора:"
+        return context
+
+class AuthorUpdate(generic.UpdateView):
+    model = models.Author
+    fields = ['name', 'bio',]
+
+class AuthorDelete(generic.DeleteView):
+    model = models.Author
+    success_url = "/author-list-classbv/"
 
 
-def author_list(request):
-    authors = models.Author.objects.all()
-    context = {
-        "object_list": authors,
-        "page_title": "authors"
-    }
-    return render(
-        request,
-        template_name="author-list.html",
-        context=context)
+class SeriesList(generic.ListView):
+    model = models.Series
 
-def author_det(request, author_id):
-    author = models.Author.objects.get(pk=author_id)
-    context = {
-        'object': author,
-        'page_title': f'Autror {author.pk}'
-    }
-    return render(
-        request,
-        template_name="author-det.html",
-        context=context)
+class SeriesListDetail(generic.DetailView):
+    model = models.Series
+
+class SeriesCreate(generic.CreateView):
+    model = models.Series
+    fields = ['title', 'description',]
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Создание новой серии:"
+        return context
+
+class SeriesUpdate(generic.UpdateView):
+    model = models.Series
+    fields = ['title', 'description',]
+
+class SeriesDelete(generic.DeleteView):
+    model = models.Series
+    success_url = "/series-list-classbv/"
+
+class GenreList(generic.ListView):
+    model = models.Genre
+
+class GenreListDetail(generic.DetailView):
+    model = models.Genre
+
+class GenreCreate(generic.CreateView):
+    model = models.Genre
+    fields = ['name',]
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Создание нового жанра:"
+        return context
+
+class GenreUpdate(generic.UpdateView):
+    model = models.Genre
+    fields = ['name',]
+
+class GenreDelete(generic.DeleteView):
+    model = models.Genre
+    success_url = "/genre-list-classbv/"
+
+
+class PublisherList(generic.ListView):
+    model = models.Publisher
+
+class PublisherListDetail(generic.DetailView):
+    model = models.Publisher
+
+class PublisherCreate(generic.CreateView):
+    model = models.Publisher
+    fields = ['name', 'address', 'website',]
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Создание нового издательства:"
+        return context
+
+class PublisherUpdate(generic.UpdateView):
+    model = models.Publisher
+    fields = ['name', 'address', 'website',]
+
+class PublisherDelete(generic.DeleteView):
+    model = models.Publisher
+    success_url = "/publisher-list-classbv/"
+
+
+class FirstPageList(generic.ListView):
+    model = models.FirstPage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -116,3 +210,32 @@ def author_det(request, author_id):
 #         )
 #         print(new_book)
 #         return HttpResponseRedirect(f"/book-list-det/{new_book.id}/")
+
+# def author_list(request):
+#     authors = models.Author.objects.all()
+#     context = {
+#         "object_list": authors,
+#         "page_title": "authors"
+#     }
+#     return render(
+#         request,
+#         template_name="author-list.html",
+#         context=context)
+
+# def author_det(request, author_id):
+#     author = models.Author.objects.get(pk=author_id)
+#     context = {
+#         'object': author,
+#         'page_title': f'Autror {author.pk}'
+#     }
+#     return render(
+#         request,
+#         template_name="author-det.html",
+#         context=context)
+
+# def index(request):
+#     return HttpResponse("Hello, world!")
+
+# def about(request):
+#     return HttpResponse("About us")
+

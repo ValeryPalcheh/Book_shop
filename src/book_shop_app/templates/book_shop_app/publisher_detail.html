@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ object.id }}</title>
+</head>
+<body>
+<h1>Издательство {{object.id}}</h1>
+<ul>
+    <li><b>Название</b>: {{ object.name }}</li>
+    <li><b>Адрес</b>: {{ object.address }}</li>
+    <li><b>Вебсайт</b>: {{ object.website }}</li>
+</ul>
+
+{% if object.publishers.all %}
+    <h2>Книги этого издательства:</h2>
+    {% for book in object.publishers.all %}
+        <ul>
+            <li>{{ book.title }}</li>
+        </ul>     
+    {% endfor %}
+{% else %}
+<h3>Нет книг этого издательства</h3>
+
+{% endif %}
+    
+<a href="/publisher-create-classbv/">Добавить Издательство</a>
+
+  
+</body>
+</html>

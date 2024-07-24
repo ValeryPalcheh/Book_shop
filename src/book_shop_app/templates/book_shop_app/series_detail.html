@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ object.id }}</title>
+</head>
+<body>
+<h1>Серия {{object.id}}</h1>
+<ul>
+    <li><b>Серия</b>: {{ object.title }}</li>
+    <li><b>Описание</b>: {{ object.description }}</li>
+</ul>
+
+{% if object.series.all %}
+    <h2>Книги этой серии:</h2>
+    {% for book in object.series.all %}
+        <ul>
+            <li>{{ book.title }}</li>
+        </ul>     
+    {% endfor %}
+{% else %}
+<h3>Нет книг в этой серии</h3>
+
+{% endif %}
+    
+<a href="/series-create-classbv/">Добавить серию</a>
+
+  
+</body>
+</html>
