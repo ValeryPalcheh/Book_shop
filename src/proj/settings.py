@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-$y^kgw2$=6s+tq7e_h&_h^iy8whc6jm1&^-ynl-x&e@7@n2v*n
 DEBUG = True
 # DEBUG = False
 ALLOWED_HOSTS = ['valerypalchekh.pythonanywhere.com']
+
 # ALLOWED_HOSTS = ['127.0.0.1']
 
 
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
 ]
 
 PROJ_APPS = [
-    'book_shop_app'
+    'book_shop_app',
+    'book_app',
 ]
 INSTALLED_APPS += PROJ_APPS
 
@@ -121,8 +123,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+
+
+# MEDIA_ROOT = BASE_DIR.parent / 'media'  # где физич хранятся файлы
+
+# для хостинга(продакшн)
+
+STATIC_ROOT = '/home/ValeryPalchekh/static'
 STATIC_ROOT = '/home/ValeryPalchekh/static'
 MEDIA_ROOT = '/home/ValeryPalchekh/media'
 

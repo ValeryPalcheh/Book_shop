@@ -1,5 +1,6 @@
 from django.urls import path
 from book_shop_app import views
+from book_app import views as book_app_views
 
 
 urlpatterns = [
@@ -29,9 +30,7 @@ urlpatterns = [
     path('publisher-create-classbv/', views.PublisherCreate.as_view()),
     path('publisher-update-classbv/<int:pk>/', views.PublisherUpdate.as_view()),
     path('publisher-delete-classbv/<int:pk>/', views.PublisherDelete.as_view()),
+    path('item-create/', book_app_views.ItemCreate.as_view()),
+    path('item-detail/<int:pk>/', book_app_views.ItemDetail.as_view()), 
 
-#    path('index/', views.index, name='index'),
-#    path('about/', views.about, name='about'),
-#    path('author-list/', views.author_list, name='Все авторы'),   
-#    path('author-det/<int:author_id>/', views.author_det),    
 ]
