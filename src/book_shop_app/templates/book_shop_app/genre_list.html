@@ -1,31 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page_title }}</title>
-</head>
-<body>
-    <table border="1">
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+
+<h4><a href="/genre-create-classbv/">Добавить новый жанр</a></h4>
+<br>
+<h5>Все жанры:</h5>
+
+    <table class="table table-striped">
         <tr>
-            <th>ID</th>
+            <th>IDномер</th>
             <th>Жанр</th>
             <th>Подробности</th>
-            <th>Изменить серию</th>
-            <th>Удалить серию</th>
+            <th>Редактор</th>
+            <th>Удаление</th>
         </tr>
         {% for obj in object_list %}
         <tr>
             <th>{{ obj.id }}</th>
             <th>{{ obj.name }}</th>
-            <th><a href="/genre-list-det-classbv/{{obj.id}}">перейти</a></th>  
-            <th><a href="/genre-update-classbv/{{obj.id}}">перейти</a></th> 
-            <th><a href="/genre-delete-classbv/{{obj.id}}">перейти</a></th>
+            <th><button type="button" class="btn btn-outline-info"><a href="/genre-list-det-classbv/{{obj.id}}">Информация</a></button></th>
+            <th><button type="button" class="btn btn-outline-success"><a href="/genre-update-classbv/{{obj.id}}">Изменить</a></button></th>
+            <th><button type="button" class="btn btn-outline-danger"><a href="/genre-delete-classbv/{{obj.id}}">Удалить</a></button></th> 
+
         </tr>
         {% endfor %}
     </table>
 
-    <h2>Добавить:</h2>
-    <a href="/genre-create-classbv/">Жанр</a><br>
-</body>
-</html>
+                
+{% endblock MAIN_CONTENT %}

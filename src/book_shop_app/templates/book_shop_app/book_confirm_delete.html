@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page_title }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
 <h1>Вы действительно хотите удалить объект: {{ object }}?</h1>
 
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Удалить!!!</button>
+    <button type="submit" class="btn btn-outline-danger">Удалить!!!</button>
+    
 </form>
 
-</body>
-</html>
+{% endblock MAIN_CONTENT %}

@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ object.id }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
 <h1>Серия {{object.id}}</h1>
 <ul>
     <li><b>Серия</b>: {{ object.title }}</li>
@@ -23,9 +19,6 @@
 <h3>Нет книг в этой серии</h3>
 
 {% endif %}
-    
-<a href="/series-create-classbv/">Добавить серию</a>
 
   
-</body>
-</html>
+{% endblock MAIN_CONTENT %}

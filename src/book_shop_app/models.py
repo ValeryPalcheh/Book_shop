@@ -42,8 +42,8 @@ class Publisher(models.Model):
         return f"/publisher-list-det-classbv/{self.pk}/"
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)
-    # cover_image = models.ImageField(upload_to='covers/')  # Папка для изображений обложек
+    title = models.CharField(verbose_name='Book title', max_length=200)
+    cover = models.ImageField(verbose_name='Book cover', upload_to='book_covers/%Y/%m/%d')  # Папка для изображений обложек
     price = models.DecimalField(max_digits=10, decimal_places=2)  # Цена книги
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="authors")
     series = models.ForeignKey(Series, on_delete=models.CASCADE, blank=True, null=True, related_name="series")

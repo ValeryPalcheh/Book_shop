@@ -1,69 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page_title }}</title>
-</head>
-<body>
-    <h1>Книга {{ object.id }} подробности:</h1>
-    
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+
+    <h1>Подробности книги: {{ object.id }}, {{ object.title }} </h1>
+    <br>
+    <img src="{{ object.cover.url }}" alt="">
     <table border="1">
         <tr>
-            <th>title</th><th>{{ object.title }}</th>
+            <th>Название</th><th>{{ object.title }}</th>
         </tr>
-        <tr>
-            <th>price</th><th>{{ object.price }} BYN</th>
-        </tr>
-        <tr>
-            <th>author</th><th>{{ object.author }}</th>
-        </tr>
-        <tr>
-            <th>series</th><th>{{ object.series }}</th>
-        </tr>
-        <tr>
-            <th>genre</th><th>{{ object.genre }}</th>
-        </tr>
-        <tr>
-            <th>publication_year</th><th>{{ object.publication_year }}</th>
-        </tr>
-        <tr>
-            <th>pages</th><th>{{ object.pages }}</th>
-        </tr>
-        <tr>
-            <th>binding</th><th>{{ object.binding }}</th>
-        </tr>
-        <tr>
-            <th>format</th><th>{{ object.format }}</th>
-        </tr>
-        <tr>
-            <th>isbn</th><th>{{ object.isbn }}</th>
-        </tr>
-        <tr>
-            <th>weight</th><th>{{ object.weight }} грамм</th>
-        </tr>
-        <tr>
-            <th>age_restrictions</th><th>{{ obj.age_restrictions }}</th>
-        </tr>
-        <tr>
-            <th>publisher</th><th>{{ object.publisher }}</th>
-        </tr>
-        <tr>
-            <th>quantity_in_stock</th><th>{{ object.quantity_in_stock }}</th>
-        </tr>
-        <tr>
-            <th>is_active</th><th>{{ object.is_active }}</th>
-        </tr>
-        <tr>
-            <th>rating</th><th>{{ object.rating }}</th>
-        </tr>
-        <tr>
-            <th>date_added</th><th>{{ object.date_added }}</th>
-        </tr>
-        <tr>
-            <th>last_modified</th><th>{{ object.last_modified }}</th>          
-        </tr>
-
         
-</body>
-</html>
+        <tr>
+            <th>Цена</th><th>{{ object.price }} BYN</th>
+        </tr>
+        <tr>
+            <th>Автор</th><th>{{ object.author }}</th>
+        </tr>
+        <tr>
+            <th>Серия</th><th>{{ object.series }}</th>
+        </tr>
+        <tr>
+            <th>Жанр</th><th>{{ object.genre }}</th>
+        </tr>
+        <tr>
+            <th>Год издания</th><th>{{ object.publication_year }}</th>
+        </tr>
+        <tr>
+            <th>Количество страниц</th><th>{{ object.pages }}</th>
+        </tr>
+        <tr>
+            <th>Переплет</th><th>{{ object.binding }}</th>
+        </tr>
+        <tr>
+            <th>Формат</th><th>{{ object.format }}</th>
+        </tr>
+        <tr>
+            <th>ISBN</th><th>{{ object.isbn }}</th>
+        </tr>
+        <tr>
+            <th>Вес книги</th><th>{{ object.weight }} грамм</th>
+        </tr>
+        <tr>
+            <th>Возврастные ограничения</th><th>{{ object.age_restrictions }}</th>
+        </tr>
+        <tr>
+            <th>Издательство</th><th>{{ object.publisher }}</th>
+        </tr>
+        <tr>
+            <th>Количество книг в наличии</th><th>{{ object.quantity_in_stock }}</th>
+        </tr>
+        <tr>
+            <th>Доступен для заказа</th><th>{{ object.is_active }}</th>
+        </tr>
+        <tr>
+            <th>Рейтинг книги</th><th>{{ object.rating }}</th>
+        </tr>
+        <tr>
+            <th>Дата внесения в каталог</th><th>{{ object.date_added }}</th>
+        </tr>
+        <tr>
+            <th>Дата последнего изменения карточки</th><th>{{ object.last_modified }}</th>          
+        </tr>
+    </table>      
+
+
+{% endblock MAIN_CONTENT %}

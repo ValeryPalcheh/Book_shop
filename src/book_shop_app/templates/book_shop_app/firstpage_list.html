@@ -1,29 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page_title }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    <h1>Страница Менеджера магазина (учебная)</h1>
 
-    <h2>Перейти:</h2>
-    <a href="/book-list-classbv/">К книгам</a><br>
-    <a href="/author-list-classbv/">К авторам</a><br>
-    <a href="/series-list-classbv/">К сериям</a><br>
-    <a href="/genre-list-classbv/">К жанрам</a><br>
-    <a href="/publisher-list-classbv/">К издательствам</a><br>
+{% block MAIN_CONTENT %}
 
-    <h2>Добавить:</h2>
-    <a href="/book-create-classbv/">Книгу</a><br>
-    <a href="/author-create-classbv/">Автора</a><br>
-    <a href="/genre-create-classbv/">Жанр</a><br>
-    <a href="/publisher-create-classbv/">Издательство</a><br>
-    <a href="/series-create-classbv/">Серию</a><br>
+    <h1>Привет!!!</h1>
+    <h1></h1>
+    <h1>Мы рады приветствовать в нашем магазине</h1>
 
-</body>
 
-</html>
-
+               
+{% endblock MAIN_CONTENT %}

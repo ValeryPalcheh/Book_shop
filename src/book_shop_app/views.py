@@ -14,7 +14,7 @@ class BookListDetail(generic.DetailView):
 
 class BookCreate(generic.CreateView):
     model = models.Book
-    fields = ['title', 'price', 'author', 'series', 'genre', 'publication_year', 'pages',
+    fields = ['title', 'cover', 'price', 'author', 'series', 'genre', 'publication_year', 'pages',
               'binding', 'format', 'isbn', 'weight', 'age_restrictions',
               'publisher', 'quantity_in_stock', 'is_active', 'rating',]
     
@@ -30,7 +30,7 @@ class BookCreate(generic.CreateView):
 
 class BookUpdate(generic.UpdateView):
     model = models.Book
-    fields = ['title', 'price', 'author', 'series', 'genre', 'publication_year', 'pages',
+    fields = ['title', 'cover', 'price', 'author', 'series', 'genre', 'publication_year', 'pages',
               'binding', 'format', 'isbn', 'weight', 'age_restrictions',
               'publisher', 'quantity_in_stock', 'is_active', 'rating',]
 

@@ -1,10 +1,9 @@
 from django.urls import path
 from book_shop_app import views
-from book_app import views as book_app_views
 
 
 urlpatterns = [
-    path('first-page-list/', views.FirstPageList.as_view(), name='Страница Менеджера магазина (учебная)'),
+    path('first-page-list/', views.FirstPageList.as_view()),
     path('book-list-classbv/', views.BookList.as_view()),
     path('book-list-det-classbv/<int:pk>/', views.BookListDetail.as_view()),
     path('book-create-classbv/', views.BookCreate.as_view()),
@@ -30,7 +29,5 @@ urlpatterns = [
     path('publisher-create-classbv/', views.PublisherCreate.as_view()),
     path('publisher-update-classbv/<int:pk>/', views.PublisherUpdate.as_view()),
     path('publisher-delete-classbv/<int:pk>/', views.PublisherDelete.as_view()),
-    path('item-create/', book_app_views.ItemCreate.as_view()),
-    path('item-detail/<int:pk>/', book_app_views.ItemDetail.as_view()), 
 
 ]

@@ -43,7 +43,6 @@ INSTALLED_APPS = [
 
 PROJ_APPS = [
     'book_shop_app',
-    'book_app',
 ]
 INSTALLED_APPS += PROJ_APPS
 
@@ -62,7 +61,7 @@ ROOT_URLCONF = 'proj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates",],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,6 +73,13 @@ TEMPLATES = [
         },
     },
 ]
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+
+
 
 WSGI_APPLICATION = 'proj.wsgi.application'
 
@@ -130,6 +136,7 @@ MEDIA_URL = '/media/'
 
 
 # MEDIA_ROOT = BASE_DIR.parent / 'media'  # где физич хранятся файлы
+# STATIC_ROOT = BASE_DIR.parent / 'static'
 
 # для хостинга(продакшн)
 

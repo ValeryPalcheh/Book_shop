@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ object.id }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
 <h1>Жанр {{object.id}}</h1>
 <ul>
     <li><b>жанр</b>: {{ object.name }}</li>
@@ -23,9 +19,5 @@
 <h3>Нет книг этого жанра</h3>
 
 {% endif %}
-    
-<a href="/genre-create-classbv/">Добавить жанр</a>
-
-  
-</body>
-</html>
+                
+{% endblock MAIN_CONTENT %}

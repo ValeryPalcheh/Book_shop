@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ object.id }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
 <h1>Издательство {{object.id}}</h1>
 <ul>
     <li><b>Название</b>: {{ object.name }}</li>
@@ -25,8 +21,5 @@
 
 {% endif %}
     
-<a href="/publisher-create-classbv/">Добавить Издательство</a>
 
-  
-</body>
-</html>
+{% endblock MAIN_CONTENT %}

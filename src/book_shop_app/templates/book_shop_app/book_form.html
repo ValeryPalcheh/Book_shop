@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page_title }}</title>
-</head>
-<body>
-    <h1>{{ page_title }}</h1>
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form }}
-    
-    <button type="submit">save</button>
+{% extends 'base.html' %}
 
 
-</form>   
-        
-</body>
-</html>
+{% block MAIN_CONTENT %}
+<h1 class="mt-5">{{ page_title }}</h1>
+  <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }} 
+            <button type="submit" class="btn btn-outline-primary">Сохранить</button>   
 
+    </form> 
+                
+{% endblock MAIN_CONTENT %}
