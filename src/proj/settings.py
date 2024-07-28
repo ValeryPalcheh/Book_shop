@@ -135,13 +135,13 @@ MEDIA_URL = '/media/'
 
 
 
-# MEDIA_ROOT = BASE_DIR.parent / 'media'  # где физич хранятся файлы
-# STATIC_ROOT = BASE_DIR.parent / 'static'
+MEDIA_ROOT = BASE_DIR.parent / 'media'  # где физич хранятся файлы
+STATIC_ROOT = BASE_DIR.parent / 'static'
 
 # для хостинга(продакшн)
 
 STATIC_ROOT = '/home/ValeryPalchekh/static'
-STATIC_ROOT = '/home/ValeryPalchekh/static'
+
 MEDIA_ROOT = '/home/ValeryPalchekh/media'
 
 
