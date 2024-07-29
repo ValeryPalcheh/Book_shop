@@ -5,7 +5,7 @@
 
     <h1>Подробности книги: {{ object.id }}</h1>
     <br>
-    <img src="{{ object.cover.url }}" alt="">
+    
     <table class="table table-striped">
         <tr>
             <th>Название</th><th>{{ object.title }}</th>
@@ -63,6 +63,6 @@
             <th>Дата последнего изменения карточки</th><th>{{ object.last_modified }}</th>          
         </tr>
     </table>      
-
+    <img src="{{ object.cover.url }}" class="img-thumbnail" alt="">
 
 {% endblock MAIN_CONTENT %}
