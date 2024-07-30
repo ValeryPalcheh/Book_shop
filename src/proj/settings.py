@@ -27,7 +27,9 @@ DEBUG = True
 # DEBUG = False
 # ALLOWED_HOSTS = ['valerypalchekh.pythonanywhere.com']
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1',
+                 'valerypalchekh.pythonanywhere.com',
+                 ]
 
 
 # Application definition
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
 
 PROJ_APPS = [
     'book_shop_app',
+    'user_app',
 ]
 INSTALLED_APPS += PROJ_APPS
 

@@ -30,4 +30,5 @@ urlpatterns = [
     path('publisher-update-classbv/<int:pk>/', views.PublisherUpdate.as_view()),
     path('publisher-delete-classbv/<int:pk>/', views.PublisherDelete.as_view()),
 
+
 ]

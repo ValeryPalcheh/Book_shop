@@ -1,0 +1,16 @@
+{% extends 'auth_base.html' %}
+
+
+{% block MAIN_CONTENT %}
+
+<h1>{{ error_message }}</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" value="{{ username }}"><br>
+    <input type="password" name="password" id="">
+    <input type="hidden" name="next" value="{{ return_to }}">
+    <button type="submit">Login</button>
+</form>
+
+{% endblock MAIN_CONTENT %}

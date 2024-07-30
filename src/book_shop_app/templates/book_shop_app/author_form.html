@@ -2,6 +2,8 @@
 {% load crispy_forms_tags %}
 
 {% block MAIN_CONTENT %}
+{% if user.is_authenticated %}
+
     <h1>{{ page_title }}</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -9,6 +11,6 @@
     <button type="submit" class="btn btn-outline-primary">Сохранить</button>
 
     </form>   
-        
+{% endif %}         
 {% endblock MAIN_CONTENT %}
 
