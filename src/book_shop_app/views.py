@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 
 class BookList(PermissionRequiredMixin, generic.ListView):
     permission_required = 'book_shop_app.view_book'
+    login_url = '/login'
     model = models.Book
 
 class BookListDetail(PermissionRequiredMixin, generic.DetailView):
@@ -45,8 +46,15 @@ class BookDelete(PermissionRequiredMixin, generic.DeleteView):
     model = models.Book
     success_url = "/book-list-classbv/"
 
-class AuthorList(PermissionRequiredMixin, generic.ListView):
+
+
+
+
+
+
+class AuthorList(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
     permission_required = 'book_shop_app.view_author'
+    login_url = '/login/'
     model = models.Author
 
 class AuthorListDetail(PermissionRequiredMixin, generic.DetailView):
@@ -56,7 +64,7 @@ class AuthorListDetail(PermissionRequiredMixin, generic.DetailView):
 class AuthorCreate(PermissionRequiredMixin, LoginRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_author' 
     model = models.Author
-    login_url = '/login'
+    
     fields = ['name', 'bio',]
 
     # def test_func(self):
@@ -81,8 +89,15 @@ class AuthorDelete(PermissionRequiredMixin, generic.DeleteView):
     success_url = "/author-list-classbv/"
 
 
+
+
+
+
+
+
 class SeriesList(PermissionRequiredMixin, generic.ListView):
     permission_required = 'book_shop_app.view_series'
+    login_url = '/login'
     model = models.Series
 
 class SeriesListDetail(PermissionRequiredMixin, generic.DetailView):
@@ -109,8 +124,17 @@ class SeriesDelete(PermissionRequiredMixin, generic.DeleteView):
     model = models.Series
     success_url = "/series-list-classbv/"
 
+
+
+
+
+
+
+
+
 class GenreList(PermissionRequiredMixin, generic.ListView):
     permission_required = 'book_shop_app.view_genre'
+    login_url = '/login'
     model = models.Genre
 
 class GenreListDetail(PermissionRequiredMixin, generic.DetailView):
@@ -138,8 +162,17 @@ class GenreDelete(PermissionRequiredMixin, generic.DeleteView):
     success_url = "/genre-list-classbv/"
 
 
+
+
+
+
+
+
+
+
 class PublisherList(PermissionRequiredMixin, generic.ListView):
     permission_required = 'book_shop_app.view_publisher'
+    login_url = '/login'
     model = models.Publisher
 
 class PublisherListDetail(PermissionRequiredMixin, generic.DetailView):
@@ -171,7 +204,8 @@ class FirstPageList(generic.ListView):
     model = models.FirstPage
 
 
-
+# class ForStaffList(generic.ListView):
+#     model = models.ForStaff
 
 
 

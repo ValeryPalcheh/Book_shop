@@ -3,14 +3,38 @@
 
 {% block MAIN_CONTENT %}
 
-<h1>{{ error_message }}</h1>
+{% if form.errors %}
+<p>Ваше имя пользователя и пароль не совпадают. Попробуйте еще раз.</p>
+{% endif %}
 
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="text" name="username" value="{{ username }}"><br>
-    <input type="password" name="password" id="">
-    <input type="hidden" name="next" value="{{ return_to }}">
-    <button type="submit">Login</button>
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>У вашей учетной записи нет доступа к этой странице.
+         Чтобы продолжить, войдите в систему с учетной записью,
+          у которой есть доступ.</p>
+    {% else %}
+    <p>Пожалуйста, войдите, чтобы увидеть эту страницу.</p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action="">   {# action="{% url 'login' %}" #}
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
+
+<input type="submit" value="Авторизоваться">
+<input type="hidden" name="next" value="{{ next }}">
 </form>
+
+{# Assumes you set up the password_reset view in your URLconf #}
+{# <p><a href="{% url 'password_reset' %}">Востановить пароль?</a></p> #}
 
 {% endblock MAIN_CONTENT %}

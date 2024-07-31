@@ -23,7 +23,8 @@ from user_app import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', auth_views.login_view),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    path('login/', auth_views.MyLoginView.as_view()),
     path('', include('book_shop_app.urls')),
     
 ]

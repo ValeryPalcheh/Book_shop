@@ -72,3 +72,7 @@ class Book(models.Model):
 
 class FirstPage(models.Model):
     pass
+
+
+# class ForStaff(models.Model):
+#     pass

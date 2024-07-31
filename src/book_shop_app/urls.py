@@ -4,6 +4,7 @@ from book_shop_app import views
 
 urlpatterns = [
     path('first-page-list/', views.FirstPageList.as_view()),
+    # path('for-staff-list/', views.ForStaffList.as_view()),
     path('book-list-classbv/', views.BookList.as_view()),
     path('book-list-det-classbv/<int:pk>/', views.BookListDetail.as_view()),
     path('book-create-classbv/', views.BookCreate.as_view()),
