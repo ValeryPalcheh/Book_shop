@@ -3,7 +3,12 @@
 
 {% block MAIN_CONTENT %}
 
+{% if user.is_authenticated %}
+{{ user }}
+<br>
+
 <h4><a href="/genre-create-classbv/">Добавить новый жанр</a></h4>
+{% endif %}
 <br>
 <h5>Все жанры:</h5>
 
@@ -12,17 +17,20 @@
             <th>IDномер</th>
             <th>Жанр</th>
             <th>Подробности</th>
+            {% if user.is_authenticated %}
             <th>Редактор</th>
             <th>Удаление</th>
+            {% endif %}
         </tr>
         {% for obj in object_list %}
         <tr>
             <th>{{ obj.id }}</th>
             <th>{{ obj.name }}</th>
             <th><button type="button" class="btn btn-outline-info"><a href="/genre-list-det-classbv/{{obj.id}}">Информация</a></button></th>
+            {% if user.is_authenticated %}
             <th><button type="button" class="btn btn-outline-success"><a href="/genre-update-classbv/{{obj.id}}">Изменить</a></button></th>
             <th><button type="button" class="btn btn-outline-danger"><a href="/genre-delete-classbv/{{obj.id}}">Удалить</a></button></th> 
-
+            {% endif %}
         </tr>
         {% endfor %}
     </table>

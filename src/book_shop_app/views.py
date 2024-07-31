@@ -5,20 +5,19 @@ from . import models, utils
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
+
 # Create your views here.
 
 
-class BookList(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'book_shop_app.view_book'
-    login_url = '/login'
+class BookList(generic.ListView):
     model = models.Book
 
-class BookListDetail(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'book_shop_app.view_book'
+class BookListDetail(generic.DetailView):
     model = models.Book
 
-class BookCreate(PermissionRequiredMixin, generic.CreateView):
+class BookCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_book'
+    login_url = '/login/'
     model = models.Book
     fields = ['title', 'cover', 'price', 'author', 'series', 'genre', 'publication_year', 'pages',
               'binding', 'format', 'isbn', 'weight', 'age_restrictions',
@@ -34,15 +33,17 @@ class BookCreate(PermissionRequiredMixin, generic.CreateView):
     #     utils.send_email(address=manager_address, text=f'Order # {self.object.pk} was created')
     #     return url
 
-class BookUpdate(PermissionRequiredMixin, generic.UpdateView):
+class BookUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'book_shop_app.change_book'
+    login_url = '/login/'
     model = models.Book
     fields = ['title', 'cover', 'price', 'author', 'series', 'genre', 'publication_year', 'pages',
               'binding', 'format', 'isbn', 'weight', 'age_restrictions',
               'publisher', 'quantity_in_stock', 'is_active', 'rating',]
 
-class BookDelete(PermissionRequiredMixin, generic.DeleteView):
+class BookDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'book_shop_app.delete_book'
+    login_url = '/login/'
     model = models.Book
     success_url = "/book-list-classbv/"
 
@@ -52,17 +53,16 @@ class BookDelete(PermissionRequiredMixin, generic.DeleteView):
 
 
 
-class AuthorList(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
-    permission_required = 'book_shop_app.view_author'
-    login_url = '/login/'
+class AuthorList(generic.ListView): 
     model = models.Author
 
-class AuthorListDetail(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'book_shop_app.view_author'
+
+class AuthorListDetail(generic.DetailView): 
     model = models.Author
 
-class AuthorCreate(PermissionRequiredMixin, LoginRequiredMixin, generic.CreateView):
+class AuthorCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_author' 
+    login_url = '/login/'
     model = models.Author
     
     fields = ['name', 'bio',]
@@ -78,13 +78,15 @@ class AuthorCreate(PermissionRequiredMixin, LoginRequiredMixin, generic.CreateVi
         context['page_title'] = "Создание нового автора:"
         return context
 
-class AuthorUpdate(PermissionRequiredMixin, generic.UpdateView):
+class AuthorUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'book_shop_app.change_author'
+    login_url = '/login/'
     model = models.Author
     fields = ['name', 'bio',]
 
-class AuthorDelete(PermissionRequiredMixin, generic.DeleteView):
+class AuthorDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'book_shop_app.delete_author'
+    login_url = '/login/'
     model = models.Author
     success_url = "/author-list-classbv/"
 
@@ -95,17 +97,17 @@ class AuthorDelete(PermissionRequiredMixin, generic.DeleteView):
 
 
 
-class SeriesList(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'book_shop_app.view_series'
-    login_url = '/login'
+class SeriesList(generic.ListView):
+   
     model = models.Series
 
-class SeriesListDetail(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'book_shop_app.view_series'
+class SeriesListDetail(generic.DetailView):
+    
     model = models.Series
 
-class SeriesCreate(PermissionRequiredMixin, generic.CreateView):
+class SeriesCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_series'
+    login_url = '/login/'
     model = models.Series
     fields = ['title', 'description',]
     
@@ -114,13 +116,15 @@ class SeriesCreate(PermissionRequiredMixin, generic.CreateView):
         context['page_title'] = "Создание новой серии:"
         return context
 
-class SeriesUpdate(PermissionRequiredMixin, generic.UpdateView):
+class SeriesUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'book_shop_app.change_series'
+    login_url = '/login/'
     model = models.Series
     fields = ['title', 'description',]
 
-class SeriesDelete(PermissionRequiredMixin, generic.DeleteView):
+class SeriesDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'book_shop_app.delete_series'
+    login_url = '/login/'
     model = models.Series
     success_url = "/series-list-classbv/"
 
@@ -132,17 +136,17 @@ class SeriesDelete(PermissionRequiredMixin, generic.DeleteView):
 
 
 
-class GenreList(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'book_shop_app.view_genre'
-    login_url = '/login'
+class GenreList(generic.ListView):
+    
     model = models.Genre
 
-class GenreListDetail(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'book_shop_app.view_genre'
+class GenreListDetail(generic.DetailView):
+    
     model = models.Genre
 
-class GenreCreate(PermissionRequiredMixin, generic.CreateView):
+class GenreCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_genre'
+    login_url = '/login/'
     model = models.Genre
     fields = ['name',]
     
@@ -151,13 +155,15 @@ class GenreCreate(PermissionRequiredMixin, generic.CreateView):
         context['page_title'] = "Создание нового жанра:"
         return context
 
-class GenreUpdate(PermissionRequiredMixin, generic.UpdateView):
+class GenreUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'book_shop_app.change_genre'
+    login_url = '/login/'
     model = models.Genre
     fields = ['name',]
 
-class GenreDelete(PermissionRequiredMixin, generic.DeleteView):
+class GenreDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'book_shop_app.delete_genre'
+    login_url = '/login/'
     model = models.Genre
     success_url = "/genre-list-classbv/"
 
@@ -170,17 +176,17 @@ class GenreDelete(PermissionRequiredMixin, generic.DeleteView):
 
 
 
-class PublisherList(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'book_shop_app.view_publisher'
-    login_url = '/login'
+class PublisherList(generic.ListView):
+    
     model = models.Publisher
 
-class PublisherListDetail(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'book_shop_app.view_publisher'
+class PublisherListDetail(generic.DetailView):
+    
     model = models.Publisher
 
-class PublisherCreate(PermissionRequiredMixin, generic.CreateView):
+class PublisherCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_publisher'
+    login_url = '/login/'
     model = models.Publisher
     fields = ['name', 'address', 'website',]
     
@@ -189,31 +195,21 @@ class PublisherCreate(PermissionRequiredMixin, generic.CreateView):
         context['page_title'] = "Создание нового издательства:"
         return context
 
-class PublisherUpdate(PermissionRequiredMixin, generic.UpdateView):
+class PublisherUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'book_shop_app.change_publisher'
+    login_url = '/login/'
     model = models.Publisher
     fields = ['name', 'address', 'website',]
 
-class PublisherDelete(PermissionRequiredMixin, generic.DeleteView):
+class PublisherDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'book_shop_app.delete_publisher'
+    login_url = '/login/'
     model = models.Publisher
     success_url = "/publisher-list-classbv/"
 
 
 class FirstPageList(generic.ListView):
     model = models.FirstPage
-
-
-# class ForStaffList(generic.ListView):
-#     model = models.ForStaff
-
-
-
-
-
-
-
-
 
 
 

@@ -74,5 +74,3 @@ class FirstPage(models.Model):
     pass
 
 
-# class ForStaff(models.Model):
-#     pass

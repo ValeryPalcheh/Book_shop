@@ -2,7 +2,15 @@
 
 
 {% block MAIN_CONTENT %}
+
+
+
+{% if user.is_authenticated %}
+{{ user }}
+<br>
 <h4><a href="/author-create-classbv/">Добавить автора</a></h4>
+{% endif %}
+
 <br>
 <h5>Все авторы:</h5>
 
@@ -12,20 +20,24 @@
             <th>IDномер</th>
             <th>ФИО</th>
             <th>Биография</th>
+            {% if user.is_authenticated %}
             <th>Редактор</th>
             <th>Удаление</th>
+            {% endif %}
         </tr>
         {% for obj in object_list %}
         <tr>
             <th>{{ obj.id }}</th>
             <th>{{ obj.name }}</th>
             <th><button type="button" class="btn btn-outline-info"><a href="/author-list-det-classbv/{{obj.id}}">Информация</a></button></th>
+            {% if user.is_authenticated %}
             <th><button type="button" class="btn btn-outline-success"><a href="/author-update-classbv/{{obj.id}}">Изменить</a></button></th>
             <th><button type="button" class="btn btn-outline-danger"><a href="/author-delete-classbv/{{obj.id}}">Удалить</a></button></th> 
-
+            {% endif %}
         </tr>
         {% endfor %}
     </table>
+
 
 
 {% endblock MAIN_CONTENT %}

@@ -3,7 +3,12 @@
 
 {% block MAIN_CONTENT %}
 
+{% if user.is_authenticated %}
+{{ user }}
+<br>
+
 <h4><a href="/book-create-classbv/">Добавить новую книгу</a></h4>
+{% endif %}
 <br>
 <h5>Все книги:</h5>
 
@@ -12,17 +17,20 @@
             <th>IDномер</th>
             <th>Книга</th>
             <th>Портфолио</th>
+            {% if user.is_authenticated %}
             <th>Редактор</th>
             <th>Удаление</th>
+            {% endif %}
         </tr>
         {% for obj in object_list %}
         <tr>
             <th>{{ obj.id }}</th>
             <th>{{ obj.title }}</th>
             <th><button type="button" class="btn btn-outline-info"><a href="/book-list-det-classbv/{{obj.id}}">Информация</a></button></th>
+            {% if user.is_authenticated %}
             <th><button type="button" class="btn btn-outline-success"><a href="/book-update-classbv/{{obj.id}}">Изменить</a></button></th>
             <th><button type="button" class="btn btn-outline-danger"><a href="/book-delete-classbv/{{obj.id}}">Удалить</a></button></th> 
-            
+            {% endif %}
         </tr>
         {% endfor %}
     </table>
