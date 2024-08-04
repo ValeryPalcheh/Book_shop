@@ -18,15 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from user_app import views as auth_views
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('accounts/', include('django.contrib.auth.urls')),
-    path('login/', auth_views.MyLoginView.as_view()),
-    path('', include('book_shop_app.urls')),
-    
+    path('book_shop/', include('book_shop_app.urls', namespace='book_shop')),
+    path('user/', include('user_app.urls', namespace='user')),    
 ]
 
 # не для хостинга

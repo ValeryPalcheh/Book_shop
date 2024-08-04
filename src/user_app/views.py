@@ -2,12 +2,14 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth import views as auth_views
+from django.urls import reverse, reverse_lazy
 
 # Create your views here.
 
 
 class MyLoginView(auth_views.LoginView):
     template_name = "user_app/login.html"
+
 
 
 

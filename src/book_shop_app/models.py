@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse, reverse_lazy
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
@@ -9,7 +9,7 @@ class Author(models.Model):
         return f'{self.name}'
     
     def get_absolute_url(self):
-        return f"/author-list-det-classbv/{self.pk}/"
+       return reverse_lazy('book_shop:author-detail', kwargs={"pk": self.pk}) 
 
 class Series(models.Model):
     title = models.CharField(max_length=255)
@@ -19,7 +19,7 @@ class Series(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return f"/series-list-det-classbv/{self.pk}/"
+        return reverse_lazy('book_shop:series-detail', kwargs={"pk": self.pk})
 
 class Genre(models.Model):
     name = models.CharField(max_length=100)
@@ -28,7 +28,7 @@ class Genre(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f"/genre-list-det-classbv/{self.pk}/"
+        return reverse_lazy('book_shop:genre-detail', kwargs={"pk": self.pk})
 
 class Publisher(models.Model):
     name = models.CharField(max_length=255)
@@ -39,7 +39,7 @@ class Publisher(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f"/publisher-list-det-classbv/{self.pk}/"
+        return reverse_lazy('book_shop:publisher-detail', kwargs={"pk": self.pk})
 
 class Book(models.Model):
     title = models.CharField(verbose_name='Book title', max_length=200)
@@ -53,7 +53,7 @@ class Book(models.Model):
     binding = models.CharField(max_length=50)  # Переплет (мягкий, твердый и т.д.)
     format = models.CharField(max_length=50)  # Формат (например, A5, A4 и т.д.)
     isbn = models.CharField(max_length=13, unique=True)  # ISBN
-    weight = models.FloatField()  # Вес книги (например, в граммах)
+    weight = models.FloatField()  # Вес книги
     age_restrictions = models.CharField(max_length=50, blank=True)  # Возрастные ограничения
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name="publishers")
     quantity_in_stock = models.PositiveIntegerField(default=0)  # Количество книг в наличии
@@ -66,7 +66,7 @@ class Book(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return f"/book-list-det-classbv/{self.pk}/"
+        return reverse_lazy('book_shop:book-detail', kwargs={"pk": self.pk})
 
 
 

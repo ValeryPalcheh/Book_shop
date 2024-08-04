@@ -5,6 +5,7 @@ from . import models, utils
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.urls import reverse, reverse_lazy
 
 # Create your views here.
 
@@ -17,7 +18,7 @@ class BookListDetail(generic.DetailView):
 
 class BookCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_book'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Book
     fields = ['title', 'cover', 'price', 'author', 'series', 'genre', 'publication_year', 'pages',
               'binding', 'format', 'isbn', 'weight', 'age_restrictions',
@@ -35,7 +36,7 @@ class BookCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView
 
 class BookUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'book_shop_app.change_book'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Book
     fields = ['title', 'cover', 'price', 'author', 'series', 'genre', 'publication_year', 'pages',
               'binding', 'format', 'isbn', 'weight', 'age_restrictions',
@@ -43,10 +44,9 @@ class BookUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView
 
 class BookDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'book_shop_app.delete_book'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Book
-    success_url = "/book-list-classbv/"
-
+    success_url = reverse_lazy('book_shop:book-list')
 
 
 
@@ -62,7 +62,7 @@ class AuthorListDetail(generic.DetailView):
 
 class AuthorCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_author' 
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Author
     
     fields = ['name', 'bio',]
@@ -80,15 +80,15 @@ class AuthorCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateVi
 
 class AuthorUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'book_shop_app.change_author'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Author
     fields = ['name', 'bio',]
 
 class AuthorDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'book_shop_app.delete_author'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Author
-    success_url = "/author-list-classbv/"
+    success_url = reverse_lazy('book_shop:author-list')
 
 
 
@@ -97,17 +97,15 @@ class AuthorDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteVi
 
 
 
-class SeriesList(generic.ListView):
-   
+class SeriesList(generic.ListView):   
     model = models.Series
 
-class SeriesListDetail(generic.DetailView):
-    
+class SeriesListDetail(generic.DetailView):    
     model = models.Series
 
 class SeriesCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_series'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Series
     fields = ['title', 'description',]
     
@@ -118,15 +116,15 @@ class SeriesCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateVi
 
 class SeriesUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'book_shop_app.change_series'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Series
     fields = ['title', 'description',]
 
 class SeriesDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'book_shop_app.delete_series'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Series
-    success_url = "/series-list-classbv/"
+    success_url = reverse_lazy('book_shop:series-list')
 
 
 
@@ -136,17 +134,15 @@ class SeriesDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteVi
 
 
 
-class GenreList(generic.ListView):
-    
+class GenreList(generic.ListView):   
     model = models.Genre
 
-class GenreListDetail(generic.DetailView):
-    
+class GenreListDetail(generic.DetailView):   
     model = models.Genre
 
 class GenreCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_genre'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Genre
     fields = ['name',]
     
@@ -157,15 +153,15 @@ class GenreCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateVie
 
 class GenreUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'book_shop_app.change_genre'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Genre
     fields = ['name',]
 
 class GenreDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'book_shop_app.delete_genre'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Genre
-    success_url = "/genre-list-classbv/"
+    success_url = reverse_lazy('book_shop:genre-list')
 
 
 
@@ -175,18 +171,15 @@ class GenreDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteVie
 
 
 
-
-class PublisherList(generic.ListView):
-    
+class PublisherList(generic.ListView):    
     model = models.Publisher
 
-class PublisherListDetail(generic.DetailView):
-    
+class PublisherListDetail(generic.DetailView):    
     model = models.Publisher
 
 class PublisherCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     permission_required = 'book_shop_app.add_publisher'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Publisher
     fields = ['name', 'address', 'website',]
     
@@ -197,16 +190,15 @@ class PublisherCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.Creat
 
 class PublisherUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'book_shop_app.change_publisher'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Publisher
     fields = ['name', 'address', 'website',]
 
 class PublisherDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'book_shop_app.delete_publisher'
-    login_url = '/login/'
+    login_url = reverse_lazy('user:login')
     model = models.Publisher
-    success_url = "/publisher-list-classbv/"
-
+    success_url = reverse_lazy('book_shop:publisher-list')
 
 class FirstPageList(generic.ListView):
     model = models.FirstPage
