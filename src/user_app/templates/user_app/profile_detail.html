@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+
+
+<h1></h1>
+
+<h1>Твой профиль:</h1>
+<br>
+
+<table class="table table-striped">
+    <tr>
+        <th>Электронная почта</th><th>{{ object.email }}</th>
+    </tr>
+    <tr>
+        <th>Имя</th><th>{{ object.first_name }}</th>
+    </tr>
+    <tr>
+        <th>Фамилия</th><th>{{ object.last_name }}</th>
+    </tr>
+    <tr>
+        <th>Телефон</th><th>{{ object.phone }}</th>
+    </tr>
+    <tr>
+        <th>Адрес доставки</th><th>{{ object.address }}</th>
+    </tr>
+    <tr>
+        <th>Дополнительная информация</th><th>{{ object.additional_info }}</th>
+    </tr>
+    
+</table>
+
+{% endblock MAIN_CONTENT %}
