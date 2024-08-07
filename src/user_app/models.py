@@ -23,4 +23,4 @@ class Customer(models.Model):
         return f"{self.user}"
 
 
-# vetca master
+# vetca chernovik
