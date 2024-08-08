@@ -11,7 +11,7 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     phone = models.CharField(max_length=15, blank=True)
-    address = models.TextField(max_length=300)
+    address = models.TextField(max_length=300, null=True)
     additional_info = models.TextField(blank=True)
     # Поле для группы, которое не доступно к редактированию
     GROUP_CHOICES = [

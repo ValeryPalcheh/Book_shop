@@ -3,11 +3,18 @@
 
 {% block MAIN_CONTENT %}
 
+{% load group_tags %}
 {% if user.is_authenticated %}
-{{ user }}
-<br>
-<h4><a href="{% url 'book_shop:series-create' %}">Добавить новую серию</a></h4>
+    {% if user|has_group:"Managers" %}
+    <h4><a href="{% url 'book_shop:series-create' %}">Добавить новую серию</a></h4>  
+    {% else %}
+        <p>Вы авторизованный пользователь</p>
+    {% endif %}
+{% else %}
+<p>Вы не авторизованный пользователь</p>
 {% endif %}
+
+<br>
 <br>
 <h5>Все серии:</h5>
 
@@ -17,9 +24,14 @@
             <th>Серия</th>
             <th>Подробности</th>
             {% if user.is_authenticated %}
-            <th>Редактор</th>
-            <th>Удалить</th>
+                {% if user|has_group:"Managers" %}
+                <th>Редактор</th>
+                <th>Удалить</th>
+                {% else %}
+                    
             {% endif %}
+            {% endif %}
+    
         </tr>
         {% for obj in object_list %}
         <tr>
@@ -27,8 +39,12 @@
             <th>{{ obj.title }}</th>
             <th><button type="button" class="btn btn-outline-info"><a href="{% url 'book_shop:series-detail' obj.id %}">Информация</a></button></th>
             {% if user.is_authenticated %}
+                {% if user|has_group:"Managers" %}
             <th><button type="button" class="btn btn-outline-success"><a href="{% url 'book_shop:series-update' obj.id %}">Изменить</a></button></th>
             <th><button type="button" class="btn btn-outline-danger"><a href="{% url 'book_shop:series-delete' obj.id %}">Удалить</a></button></th> 
+                {% else %}
+                    
+                {% endif %}
             {% endif %}
         </tr>
         {% endfor %}
