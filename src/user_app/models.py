@@ -1,3 +1,5 @@
+# vetca chernovik
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model # вместо user
@@ -11,7 +13,6 @@ class Customer(models.Model):
     phone = models.CharField(max_length=15, blank=True)
     address = models.TextField(max_length=300)
     additional_info = models.TextField(blank=True)
-
     # Поле для группы, которое не доступно к редактированию
     GROUP_CHOICES = [
         ('regular', 'Обычный покупатель'),
@@ -23,4 +24,3 @@ class Customer(models.Model):
         return f"{self.user}"
 
 
-# vetca chernovik
