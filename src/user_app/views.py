@@ -11,9 +11,43 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from . import models, forms
 
-
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"Вы вошли как {username}.")
+                return redirect(reverse_lazy('book_shop:first-page'))
+            else:
+                messages.error(request, "Неправильное имя пользователя или пароль.")
+        else:
+            messages.error(request, "Неправильное имя пользователя или пароль.")
+    form = AuthenticationForm()
+    return render(request = request,
+                  template_name = "user_app/login_entrance.html",
+                  context={"form":form})
+
+
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, "Вы вышли из системы.")
+    return redirect((reverse_lazy('book_shop:first-page')))
+
+
+
 
 def registration(request):
     if request.method == 'POST':
@@ -34,13 +68,32 @@ def registration(request):
 
 
 
-
-
 class MyLoginView(auth_views.LoginView):
     template_name = "user_app/login.html"
+   
 
 
-class CustomerCreate(LoginRequiredMixin, generic.CreateView): # 
+class CheckProfileMixin(LoginRequiredMixin):
+    redirect_on_missing_profile = True
+    def dispatch(self, request, *args, **kwargs):     # отправлять
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()     
+        user = self.request.user
+        profile = models.Customer.objects.filter(
+            user__pk=user.pk
+        )
+        redirect_needed = bool(profile)
+        if self.redirect_on_missing_profile == True:
+            redirect_needed = not redirect_needed
+        if redirect_needed:
+            return HttpResponseRedirect(self.profile_redirect_url)
+        return super().dispatch(request, *args, **kwargs)
+
+
+
+class CustomerCreate(CheckProfileMixin, generic.CreateView):
+    profile_redirect_url = reverse_lazy('user:profile-detail')
+    redirect_on_missing_profile = False
     model = models.Customer
     template_name = "user_app/profile_create.html"
     form_class = forms.CustomerCreateForm
@@ -52,26 +105,12 @@ class CustomerCreate(LoginRequiredMixin, generic.CreateView): #
         self.object = profile
         return HttpResponseRedirect(self.get_success_url())
 
-    def dispatch(self, request, *args, **kwargs):
-        user = self.request.user
-        profile = models.Customer.objects.filter(
-            user__pk=user.pk
-        )
-        if profile:
-            return HttpResponseRedirect(reverse_lazy('user:profile-detail'))
-        return super().dispatch(request, *args, **kwargs)
 
-class CustomerDetail(LoginRequiredMixin, generic.DetailView):
+
+class CustomerDetail(CheckProfileMixin, generic.DetailView):
+    profile_redirect_url = reverse_lazy('user:profile-create')
+    redirect_on_missing_profile = True
     template_name = "user_app/profile_detail.html"
-
-    def dispatch(self, request, *args, **kwargs):
-        user = self.request.user
-        profile = models.Customer.objects.filter(
-            user__pk=user.pk
-        )
-        if not profile:
-            return HttpResponseRedirect(reverse_lazy('user:profile-create'))
-        return super().dispatch(request, *args, **kwargs)
 
     def get_object(self):
         user = self.request.user
@@ -89,10 +128,18 @@ class CustomerDetail(LoginRequiredMixin, generic.DetailView):
                 last_name = '',
                 phone = '',
                 address='',
-                additional_info = 'c-4',
+                additional_info = '',
                 group = '',
             )
         return profile
+
+
+
+
+
+
+
+
 
 
 

@@ -3,17 +3,21 @@
 
 {% block MAIN_CONTENT %}
 
-    <br>
-    <br>
-    <h1>Привет! </h1>
-   
-{% if user.is_authenticated %}
 
-    <h4></h4>
-    <h1>{{ user }}</h1><br>
-    
+<h1>Привет!</h1>
+<br>
+<br>
 
-    {% endif %}
+{% if user.is_authenticated %}   
+    <h1>{{ user }}</h1>
+    <th><button type="button" class="btn btn-outline-info"><a href="{% url 'user:logout' %}">Выход из профиля</a></button></th>
+{% else %}
+    <th><button type="button" class="btn btn-outline-info"><a href="{% url 'user:registration' %}">Регистрация нового пользователя</a></button></th>
+    <th><button type="button" class="btn btn-outline-info"><a href="{% url 'user:login_entrance' %}">Войти в свой профиль</a></button></th>
 
-               
+
+{% endif %}
+
+
+
 {% endblock MAIN_CONTENT %}

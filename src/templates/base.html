@@ -92,7 +92,7 @@
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
           <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'book_shop:first-page' %}">Книжный магазин</a>
+            <a class="navbar-brand" href="">Витрина</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -114,11 +114,15 @@
                   <a class="nav-link active" href="{% url 'book_shop:series-list' %}">Серии</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="{% url 'user:registration' %}">Регистрация</a>
+                  <a class="nav-link active" href="">Корзина</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="{% url 'user:login' %}">Вход</a>
+                  <a class="nav-link active" href="">                 </a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'book_shop:first-page' %}">Домашняя страница</a>
+                </li>
+                
               </ul>
               <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
