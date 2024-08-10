@@ -1,6 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+
+
 <h2>Регистрация нового пользователя</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Отправить</button>
   </form>
+
+
+
+{% endblock MAIN_CONTENT %}

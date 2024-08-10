@@ -29,11 +29,12 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"Вы вошли как {username}.")
-                return redirect(reverse_lazy('book_shop:first-page'))
+                return redirect(reverse_lazy('user:profile-detail'))
             else:
                 messages.error(request, "Неправильное имя пользователя или пароль.")
         else:
             messages.error(request, "Неправильное имя пользователя или пароль.")
+            messages.error(request, "Пройдите регистрацию или продолжите как не зарегистрированный пользователь.")
     form = AuthenticationForm()
     return render(request = request,
                   template_name = "user_app/login_entrance.html",
@@ -44,7 +45,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     messages.info(request, "Вы вышли из системы.")
-    return redirect((reverse_lazy('book_shop:first-page')))
+    return redirect((reverse_lazy('user:personal-page-list')))
 
 
 
@@ -66,6 +67,9 @@ def registration(request):
     return render(request, 'user_app/registration.html', {'form': form})
 
 
+
+class PersonalPageList(generic.ListView):
+    model = models.PersonalPage
 
 
 class MyLoginView(auth_views.LoginView):
@@ -107,8 +111,9 @@ class CustomerCreate(CheckProfileMixin, generic.CreateView):
 
 
 
-class CustomerDetail(CheckProfileMixin, generic.DetailView):
+class CustomerDetail(CheckProfileMixin, LoginRequiredMixin, generic.DetailView):
     profile_redirect_url = reverse_lazy('user:profile-create')
+    login_url = reverse_lazy('user:login')
     redirect_on_missing_profile = True
     template_name = "user_app/profile_detail.html"
 

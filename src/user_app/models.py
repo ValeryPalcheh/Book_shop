@@ -1,5 +1,5 @@
 # vetca chernovik
-
+from django.urls import reverse, reverse_lazy
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model # вместо user
@@ -22,5 +22,9 @@ class Customer(models.Model):
     
     def __str__(self):
         return f"{self.user}"
+    
 
+
+class PersonalPage(models.Model):
+    pass
 

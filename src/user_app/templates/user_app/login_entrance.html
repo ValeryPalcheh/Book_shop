@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+
     <h2>Вход</h2>
     <form method="post">
         {% csrf_token %}
@@ -17,5 +16,6 @@
             {% endfor %}
         </ul>
     {% endif %}
-</body>
-</html>
+
+
+{% endblock MAIN_CONTENT %}
