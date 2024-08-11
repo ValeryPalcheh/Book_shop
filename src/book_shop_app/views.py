@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from . import models, utils
+from . import models, forms, utils
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
