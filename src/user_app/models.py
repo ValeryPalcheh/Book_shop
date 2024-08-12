@@ -1,4 +1,4 @@
-# vetca master
+
 from django.urls import reverse, reverse_lazy
 from django.db import models
 from django.contrib.auth.models import AbstractUser

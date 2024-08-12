@@ -3,6 +3,8 @@
 
 {% block MAIN_CONTENT %}
 
+{% load group_tags %}
+
     <h1>Подробности книги: {{ object.id }}</h1>
     <br>
     
@@ -36,7 +38,7 @@
             <th>Формат</th><th>{{ object.format }}</th>
         </tr>
         <tr>
-            <th>ISBN</th><th>{{ object.isbn }}</th>
+            <th>Международный стандартный книжный номер (ISBN)</th><th>{{ object.isbn }}</th>
         </tr>
         <tr>
             <th>Вес книги</th><th>{{ object.weight }} грамм</th>
@@ -51,7 +53,11 @@
             <th>Количество книг в наличии</th><th>{{ object.quantity_in_stock }}</th>
         </tr>
         <tr>
-            <th>Доступен для заказа</th><th>{{ object.is_active }}</th>
+            {% if object.is_active == True %}
+            <th>Доступен для заказа</th><th>доступен</th>
+            {% else %}
+            <th>Доступен для заказа</th><th>не доступен</th>
+            {% endif %}
         </tr>
         <tr>
             <th>Рейтинг книги</th><th>{{ object.rating }}</th>
@@ -60,8 +66,14 @@
             <th>Дата внесения в каталог</th><th>{{ object.date_added }}</th>
         </tr>
         <tr>
-            <th>Дата последнего изменения карточки</th><th>{{ object.last_modified }}</th>          
-        </tr>
+            {% if user.is_authenticated %}
+                {% if user|has_group:"Managers" %}
+                <th>Дата последнего изменения карточки</th><th>{{ object.last_modified }}</th>          
+                {% else %}
+                    
+                {% endif %}
+            {% endif %}       
+            </tr>
     </table>      
     <img src="{{ object.cover.url }}" class="img-thumbnail" alt="">
 
