@@ -10,6 +10,53 @@
 {% if cart  %}
 <ul>
     <li>ID вашей корзины - {{ cart.id }}</li>
+    <li>Создaние - {{ cart.created }}</li>
+    <li>Изменение - {{ cart.updated }}</li>
+</ul>
+<h3>Книги в корзине:</h3>
+<form action="{% url "orders:evaluate-cart" %}" method="post">
+{% csrf_token %}
+<table class="table table-hover">
+    <tr>
+        <th>Книга</th>
+        <th>Цена за книгу</th>
+        <th>Количество</th>
+        <th>Итого</th>
+        <th>#</th>
+    </tr>
+    {% for item_in_cart in cart.items.all %}
+    <tr>
+        <td>{{ item_in_cart.item.title }}</td>
+        <td>{{ item_in_cart.price_per_item }}</td>
+        <td>
+            <div class="mb-3">           
+                <input
+                type="number"
+                name="quantity.{{item_in_cart.pk}}"
+                class="form-control"
+                step="1"
+                value="{{ item_in_cart.quantity }}"
+                min="0">    
+            </div>
+        </td>
+        <td>{{ item_in_cart.price }}</td>
+        <td>#</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="3"><b>Итоговая стоимость:</b></td>
+        <td colspan="2"><b>{{ cart.order_price }}</b></td>
+    </tr>
+</table> 
+<button type="submit" name="action" value="update" class="btn btn-success">Обновить</button>
+<button type="submit" name="action" value="create" class="btn btn-danger">Создать</button>
+</form>
+
+
+
+
+
+
 
 {% else %}
 <h2>корзина пуста</h2>

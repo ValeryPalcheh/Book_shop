@@ -76,10 +76,10 @@
             </tr>
     </table>      
     <img src="{{ object.cover.url }}" class="img-thumbnail" alt="">
-    <h3>Добавить в корзину:</h3>
-    <form action="{% url "orders:add_book_to_cart" %}" method="post">
+<h3>Добавить в корзину:</h3>
+    <form action="{% url "orders:add-item-to-cart" %}" method="post">
         {% csrf_token %}
-    <input type="hidden" name="book_id" value="{{ object.id }}">
+    <input type="hidden" name="item_id" value="{{ object.id }}">
     <div class="mb-3">
         <label class="form-label">Количество:</label>
         <input type="number" name="quantity" class="form-control" step="1" min="1">

@@ -39,7 +39,7 @@
         <tr>
             <th>{{ obj.id }}</th>
             <th>{{ obj.name }}</th>
-            <th><button type="button" class="btn btn-info"><a href="{% url 'book_shop:author-detail' obj.id %}">Информация</a></button></th>
+            <th><button type="button" class="btn btn-outline-info"><a href="{% url 'book_shop:author-detail' obj.id %}">Информация</a></button></th>
             {% if user.is_authenticated %}
                 {% if user|has_group:"Managers" %}
             <th><button type="button" class="btn btn-outline-success"><a href="{% url 'book_shop:author-update' obj.id %}">Изменить</a></button></th>
