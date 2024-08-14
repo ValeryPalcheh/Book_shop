@@ -24,7 +24,8 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('book_shop/', include('book_shop_app.urls', namespace='book_shop')),
-    path('user/', include('user_app.urls', namespace='user')),    
+    path('user/', include('user_app.urls', namespace='user')),
+    path('orders/', include('orders.urls', namespace='orders')),    
 ]
 
 # не для хостинга

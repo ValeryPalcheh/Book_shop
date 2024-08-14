@@ -76,5 +76,15 @@
             </tr>
     </table>      
     <img src="{{ object.cover.url }}" class="img-thumbnail" alt="">
-
+    <h3>Добавить в корзину:</h3>
+    <form action="{% url "orders:add_book_to_cart" %}" method="post">
+        {% csrf_token %}
+    <input type="hidden" name="book_id" value="{{ object.id }}">
+    <div class="mb-3">
+        <label class="form-label">Количество:</label>
+        <input type="number" name="quantity" class="form-control" step="1" min="1">
+        <div class="form-text">Выберите количество</div>
+      </div>
+      <button type="submit" class="btn btn-outline-danger">Добавить</button>
+    </form>
 {% endblock MAIN_CONTENT %}

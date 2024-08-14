@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+
+<br>
+<br>
+<h1>Ваша корзина:</h1>
+<br>
+{% if cart  %}
+<ul>
+    <li>ID вашей корзины - {{ cart.id }}</li>
+
+{% else %}
+<h2>корзина пуста</h2>
+{% endif %}
+
+
+
+{% endblock MAIN_CONTENT %}
