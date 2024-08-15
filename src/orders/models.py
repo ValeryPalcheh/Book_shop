@@ -63,11 +63,11 @@ class ItemInCart(models.Model):
         return self.quantity * self.price_per_item
 
     def __str__(self) -> str:
-        return f"Книга {self.item.pk} в корзине {self.cart.pk}, количество {self.quantity}"
+        return f"Книга: {self.item.title}(ID-{self.item.pk}) в корзине: {self.cart.pk}, количество: {self.quantity}"
     
 
 
-# 11 мщдель заказ(новое)
+# 11 мoдель заказ(новое)
 class Order(models.Model):
     cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
