@@ -66,3 +66,13 @@ class ItemInCart(models.Model):
         return f"Книга {self.item.pk} в корзине {self.cart.pk}, количество {self.quantity}"
     
 
+
+# 11 мщдель заказ(новое)
+class Order(models.Model):
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    total_order_price = models.DecimalField(max_digits=7, decimal_places=2)
+
+    def __str__(self):
+        return f'Заказ #{self.id} для корзины #{self.cart.id}'
+

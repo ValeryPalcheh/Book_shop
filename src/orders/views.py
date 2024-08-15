@@ -58,11 +58,10 @@ def add_item_to_cart(request):
 # 8   изменение в корзине количества
 def evaluate_cart(request):
     if request.method == "POST":
-        print(request.POST)
-        # action = None
+        # print(request.POST)
+        action = None
         for key, value in request.POST.items():
-            print(key, value)
-    
+            # print(key, value)   
             if key[0:4] == "quan":
                 update_item_in_cart(key, value)
             if key[0:4] == "acti":
@@ -75,7 +74,7 @@ def evaluate_cart(request):
 
 
 
-# 9 
+# 9 обновление корзины
 def update_item_in_cart(key, quantity):
     item_in_cart_id = int(key.split(".")[1])
     item_in_cart = models.ItemInCart.objects.get(pk=item_in_cart_id)
@@ -83,15 +82,13 @@ def update_item_in_cart(key, quantity):
         item_in_cart.delete()
     else:
         item_in_cart.quantity = int(quantity)
-    item_in_cart.save()
+        item_in_cart.save()
 
 
 
 # 10 # создать заказ
 def create_order():
     pass
-
-
 
 
 
