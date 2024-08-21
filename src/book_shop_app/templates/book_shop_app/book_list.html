@@ -17,11 +17,53 @@
 
 <br>       
 <br>
-<h5>Все книги:</h5>
+<h5>Каталог книг:</h5>
 
     <table class="table table-striped">
         <tr>
-            <th>IDномер</th>
+            <th>Обложка</th>
+            <th>Артикул</th>
+            <th>Цена</th>
+            <th>Описание</th>
+            
+        </tr>
+        {% for obj in object_list %}
+        <tr>
+            <th><img src="{{ obj.cover.url }}" class="img-thumbnail" alt=""></th>
+            <th>{{ obj.id }}</th>
+            <th>{{ obj.price }}</th>
+            <th>           
+            <p>
+            Название книги: {{ obj.title }}
+            <br>
+            <p>
+            <button type="button" class="btn btn-outline-info"><a href="{% url 'book_shop:book-detail' obj.id %}">О книге и оформление покупки</a></button>
+            <br>
+            <p>
+            {% if user.is_authenticated %}
+                {% if user|has_group:"Managers" %}
+                <button type="button" class="btn btn-outline-success"><a href="{% url 'book_shop:book-update' obj.id %}">Редактировать</a></button>
+                <br>
+                <p>
+                <button type="button" class="btn btn-outline-danger"><a href="{% url 'book_shop:book-delete' obj.id %}">Удалить книгу</a></button>
+            </th> 
+                {% else %}
+                    
+                {% endif %}
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock MAIN_CONTENT %}  
+
+
+
+
+
+    {% comment %} <table class="table table-striped">
+        <tr>
+            <th></th>
             <th>Книга</th>
             <th>Портфолио</th>
             {% if user.is_authenticated %}
@@ -36,7 +78,7 @@
         </tr>
         {% for obj in object_list %}
         <tr>
-            <th>{{ obj.id }}</th>
+            <th><img src="{{ obj.cover.url }}" class="img-thumbnail" alt=""></th>
             <th>{{ obj.title }}</th>
             <th><button type="button" class="btn btn-outline-info"><a href="{% url 'book_shop:book-detail' obj.id %}">Информация</a></button></th>
             {% if user.is_authenticated %}
@@ -49,8 +91,6 @@
             {% endif %}
         </tr>
         {% endfor %}
-    </table>
-    
+    </table> {% endcomment %}
 
-{% endblock MAIN_CONTENT %}
 

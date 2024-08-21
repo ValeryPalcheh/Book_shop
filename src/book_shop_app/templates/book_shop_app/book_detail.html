@@ -5,14 +5,13 @@
 
 {% load group_tags %}
 
-    <h1>Подробности книги: {{ object.id }}</h1>
+    <h1>Подробности книги:</h1>
     <br>
-    
+    <img src="{{ object.cover.url }}" class="img-thumbnail" alt="">
     <table class="table table-striped">
         <tr>
             <th>Название</th><th>{{ object.title }}</th>
-        </tr>
-        
+        </tr>       
         <tr>
             <th>Цена</th><th>{{ object.price }} BYN</th>
         </tr>
@@ -75,7 +74,7 @@
             {% endif %}       
             </tr>
     </table>      
-    <img src="{{ object.cover.url }}" class="img-thumbnail" alt="">
+    <br>   
 <h3>Добавить в корзину:</h3>
     <form action="{% url "orders:add-item-to-cart" %}" method="post">
         {% csrf_token %}

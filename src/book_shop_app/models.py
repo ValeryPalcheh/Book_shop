@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse, reverse_lazy
+from django.core.exceptions import ValidationError
+from PIL import Image
+
 
 class Author(models.Model):
     name = models.CharField(verbose_name='ФИО автора', max_length=100)
@@ -41,9 +44,25 @@ class Publisher(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('book_shop:publisher-detail', kwargs={"pk": self.pk})
 
+
+
+
+
+
+def validate_image_size(image):
+    img = Image.open(image)
+    width, height = img.size
+    max_width = 200  # Пример значения
+    max_height = 300  # Пример значения
+    if width > max_width or height > max_height:
+        raise ValidationError(
+            f"Размер изображения не должен превышать {max_width}x{max_height} пикселей."
+        )
+
+
 class Book(models.Model):
     title = models.CharField(verbose_name='Название книги', max_length=200)
-    cover = models.ImageField(verbose_name='Обложка', upload_to='book_covers/%Y/%m/%d')  # Папка для изображений обложек
+    cover = models.ImageField(verbose_name='Обложка', upload_to='book_covers/%Y/%m/%d', validators=[validate_image_size],)  # Папка для изображений обложек
     price = models.DecimalField(verbose_name='Цена', max_digits=10, decimal_places=2)  # Цена книги
     author = models.ForeignKey(Author, verbose_name='Автор', on_delete=models.CASCADE, related_name="authors")
     series = models.ForeignKey(Series, verbose_name='Серия', on_delete=models.CASCADE, blank=True, null=True, related_name="series")
