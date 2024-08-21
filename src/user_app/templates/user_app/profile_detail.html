@@ -7,7 +7,7 @@
 
 <h1></h1>
 
-<h1>Твой профиль:</h1>
+<h1>Твой профиль: {{user}}</h1>
 <br>
 
 <table class="table table-striped">
@@ -31,5 +31,7 @@
     </tr>
     
 </table>
-
+            
+<th><button type="button" class="btn btn-outline-success"><a href="{% url 'user:profile-update' object.id %}">Изменить</a></button></th>
+            
 {% endblock MAIN_CONTENT %}

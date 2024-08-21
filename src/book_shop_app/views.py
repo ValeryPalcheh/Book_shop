@@ -7,7 +7,19 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
 
-# Create your views here.
+
+# поик книг
+from django.shortcuts import render
+from .models import Book
+
+def search(request):
+    query = request.GET.get('q')
+    book = models.Book.objects
+    books = []
+    if query:
+        books = Book.objects.filter(title__icontains=query)  # Поиск по названию
+    return render(request, 'book_shop_app/search_results.html', {'books': books, 'query': book})
+
 
 
 class BookList(generic.ListView):

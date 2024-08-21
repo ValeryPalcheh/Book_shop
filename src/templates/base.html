@@ -118,13 +118,10 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" href="{% url 'user:personal-page-list' %}">Личный кабинет</a>
-                </li>
-                
-              </ul>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Поиск</button>
-              </form>
+                </li>             
+              </ul>               
+                <button class="btn btn-outline-success" type="button"><a href="{% url 'book_shop:search' %}">Поиск книг</a></button>
+              
             </div>
           </div>
         </nav>
@@ -165,7 +162,7 @@
 
 <footer class="footer mt-auto py-3 bg-body-tertiary">
     <div class="container">
-      <span class="text-body-secondary">Книжный магазин работает согласно законодательства Республики Беларусь.</span>
+      <span class="text-body-secondary">© 2024 Ваш сайт. Все права защищены.</span>
     </div>
   </footer>
 

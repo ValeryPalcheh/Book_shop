@@ -111,6 +111,22 @@ class CustomerCreate(CheckProfileMixin, generic.CreateView):
 
 
 
+
+class CustomerUpdate(LoginRequiredMixin, generic.UpdateView):
+    login_url = reverse_lazy('user:login')
+    model = models.Customer
+    template_name = "user_app/profile_update.html"
+    form_class = forms.CustomerCreateForm
+    success_url = reverse_lazy('user:profile-detail')
+    def form_valid(self, form):
+        profile = form.save(commit=False)
+        profile.user = self.request.user
+        profile.save()
+        self.object = profile
+        return HttpResponseRedirect(self.get_success_url())
+
+
+
 class CustomerDetail(CheckProfileMixin, LoginRequiredMixin, generic.DetailView):
     profile_redirect_url = reverse_lazy('user:profile-create')
     login_url = reverse_lazy('user:login')

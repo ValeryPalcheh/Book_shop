@@ -13,4 +13,5 @@ urlpatterns = [
     path("personal-page-list/", views.PersonalPageList.as_view(), name="personal-page-list"), 
     path('profile-detail/', views.CustomerDetail.as_view(), name="profile-detail"), 
     path('profile-create/', views.CustomerCreate.as_view(), name="profile-create"),
+    path('profile-update/<int:pk>/', views.CustomerUpdate.as_view(), name="profile-update"),
 ]

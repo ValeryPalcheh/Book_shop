@@ -2,10 +2,12 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+
 app_name = "book_shop"
 
 urlpatterns = [
     path('first-page/', views.FirstPageList.as_view(), name="first-page"),
+    path('search/', views.search, name='search'),    
     path('book-list/', views.BookList.as_view(), name="book-list"),
     path('book-detail/<int:pk>/', views.BookListDetail.as_view(), name="book-detail"),
     path('book-create/', views.BookCreate.as_view(), name="book-create"),

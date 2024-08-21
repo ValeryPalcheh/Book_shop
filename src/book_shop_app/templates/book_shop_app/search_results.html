@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+<br>
+<br>
+
+    <form class="d-flex" role="search">     
+        <input class="form-control me-2" type="text" name="q" placeholder="Введите название книги">
+        <button type="submit" class="btn btn-outline-danger">Поиск</button>
+    </form>
+    <br>
+    <br>
+        <ul>
+            {% for book in books %} 
+                <li>
+                    <h4>"{{ book.title }}" - <button type="button" class="btn btn-outline-info">
+                    <a href="{% url 'book_shop:book-detail' book.pk %}">Перейти к книге</a></button></h4>
+                                        
+                </li>
+            {% endfor %}           
+        </ul>
+     
+{% endblock MAIN_CONTENT %}
+
