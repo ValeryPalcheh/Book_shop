@@ -1,10 +1,12 @@
+from django.forms import BaseModelForm
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-# Create your views here.
-from . import models
+from django.views import generic
+from . import models, forms
 from book_shop_app.models import Book
-
+from user_app.models import Customer
+from django.urls import reverse, reverse_lazy
 
 
 # 4  получить_или_создать_текущую_корзину (сохраняем в сессии)
@@ -68,7 +70,7 @@ def evaluate_cart(request):
                 action = value
         if action == "update":
             return HttpResponseRedirect(reverse_lazy("orders:view-cart"))
-        create_order()   # создать заказ
+        # create_order()   # создать заказ
         return HttpResponseRedirect(reverse_lazy("orders:view-order-create"))
 
 
@@ -87,10 +89,28 @@ def update_item_in_cart(key, quantity):
 
 
 # 10 # создать заказ
-def create_order():
-    pass
+# def create_order():
+    # cart = get_current_cart(request)
+    # pass
 
 
+# 12 достать телефон покупателя
+def get_customer_tel(user):
+    if not user.is_authenticated:
+        tel = None    
+    else:       
+        tel = user.profile.phone
+    return tel
+
+
+
+# 13 достать адрес покупателя
+def get_customer_address(user):
+    if not user.is_authenticated:
+        address = None
+    else:
+        address = user.profile.address
+    return address
 
 
 
@@ -116,12 +136,42 @@ def add_item_to_cart_view(request):
     return HttpResponseRedirect(reverse_lazy("orders:view-cart"))
 
 
+# 10 # создать заказ
+class CreateOrderGoodsView(generic.CreateView):
+    model = models.OrderGoods
+    form_class = forms.CreateOrderGoodsForm
+    template_name = "orders/create_order.html"
+    success_url = reverse_lazy('orders:created-page')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart'] = get_current_cart(self.request)
+        return context
+    
+    def get_form(self, **kwargs):
+        form = super().get_form(**kwargs)
+        form.fields['tel'].initial = get_customer_tel(self.request.user)
+        form.fields['address'].initial = get_customer_address(self.request.user)
+        return form
+    
+    def form_valid(self, form):
+        ordergoods = form.save(commit=False)
+        ordergoods.cart = get_current_cart(self.request)
+        ordergoods.save()
+        self.object = ordergoods
+        return HttpResponseRedirect(self.get_success_url())
+
+
+# 14 
+class OrderGoodsCreateView(generic.TemplateView):
+    template_name = "orders/create.html"
 
 
 
-
-
-
+class OrderGoodsList(generic.ListView):
+    model = models.OrderGoods
+    paginate_by = 20
+    
 
 
 

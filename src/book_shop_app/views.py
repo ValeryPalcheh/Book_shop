@@ -24,6 +24,7 @@ def search(request):
 
 class BookList(generic.ListView):
     model = models.Book
+    paginate_by = 5
 
 class BookListDetail(generic.DetailView):
     model = models.Book
@@ -65,7 +66,7 @@ class BookDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView
 
 class AuthorList(generic.ListView): 
     model = models.Author
-
+    paginate_by = 10
 
 class AuthorListDetail(generic.DetailView): 
     model = models.Author
@@ -109,6 +110,7 @@ class AuthorDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteVi
 
 class SeriesList(generic.ListView):   
     model = models.Series
+    paginate_by = 10
 
 class SeriesListDetail(generic.DetailView):    
     model = models.Series
@@ -146,6 +148,7 @@ class SeriesDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteVi
 
 class GenreList(generic.ListView):   
     model = models.Genre
+    paginate_by = 10
 
 class GenreListDetail(generic.DetailView):   
     model = models.Genre
@@ -183,6 +186,7 @@ class GenreDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteVie
 
 class PublisherList(generic.ListView):    
     model = models.Publisher
+    paginate_by = 10
 
 class PublisherListDetail(generic.DetailView):    
     model = models.Publisher
@@ -212,6 +216,12 @@ class PublisherDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.Delet
 
 class FirstPageList(generic.ListView):
     model = models.FirstPage
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['newest'] = get_item_for_today(self.request)
+        # context['sale'] = get_item_on_sale(self.request)
+        # context['top'] = get_top_item(self.request)
+        return context
 
 
 

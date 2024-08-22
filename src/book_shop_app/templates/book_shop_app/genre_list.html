@@ -34,7 +34,7 @@
             {% endif %}
 
         </tr>
-        {% for obj in object_list %}
+        {% for obj in page_obj %}
         <tr>
             <th>{{ obj.id }}</th>
             <th>{{ obj.name }}</th>
@@ -50,6 +50,22 @@
         </tr>
         {% endfor %}
     </table>
-
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; первый</a>
+                <a href="?page={{ page_obj.previous_page_number }}">предыдущий</a>
+            {% endif %}
+    
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">следующий</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">последний &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
                 
 {% endblock MAIN_CONTENT %}

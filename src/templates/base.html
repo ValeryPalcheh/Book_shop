@@ -118,6 +118,15 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" href="{% url 'user:personal-page-list' %}">Личный кабинет</a>
+                </li>
+                {% load group_tags %}
+                {% if user.is_authenticated %}
+                    {% if user|has_group:"Managers" %}
+                    <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'orders:order-goods-list' %}">Обработка заказов</a>
+                    {% else %}
+                    {% endif %}
+                {% endif %}
                 </li>             
               </ul>               
                 <button class="btn btn-outline-success" type="button"><a href="{% url 'book_shop:search' %}">Поиск книг</a></button>
@@ -162,7 +171,7 @@
 
 <footer class="footer mt-auto py-3 bg-body-tertiary">
     <div class="container">
-      <span class="text-body-secondary">© 2024 Ваш сайт. Все права защищены.</span>
+      <span class="text-body-secondary">© 2024 Книжный магазин - Витрина. Все права защищены.</span>
     </div>
   </footer>
 

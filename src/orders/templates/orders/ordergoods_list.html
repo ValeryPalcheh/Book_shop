@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+<br>
+{% load group_tags %}
+{% if user.is_authenticated %}
+    {% if user|has_group:"Managers" %}
+    <p>Вы авторизованный пользователь {{ user }}</p>       
+<br>
+<h5>Заказы:</h5>
+
+    <table class="table table-striped">
+        <tr>
+            <th>ID(артикул)</th>
+            <th>Дата создания</th>
+            <th>Корзина и покупатель</th>
+            <th>Телефон</th>
+            <th>Адрес доставки</th>
+              
+        </tr>
+        {% for obj in page_obj %}
+        <tr>
+            <th>{{ obj.id }}</th>
+            <th>{{ obj.created_at }}</th>
+            <th>{{ obj.cart }}</th>
+            <th>{{ obj.tel }}</th>
+            <th>{{ obj.address }}</th>
+               
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+        <p>У вас не достаточно прав доступа.</p>
+    {% endif %}
+{% else %}
+<p>Вы не авторизованный пользователь</p>
+{% endif %}
+
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; первый</a>
+                <a href="?page={{ page_obj.previous_page_number }}">предыдущий</a>
+            {% endif %}
+    
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">следующий</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">последний &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock MAIN_CONTENT %}  
+
+
+

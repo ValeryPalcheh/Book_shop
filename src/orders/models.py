@@ -67,12 +67,17 @@ class ItemInCart(models.Model):
     
 
 
-# 11 мoдель заказ(новое)
-class Order(models.Model):
-    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
+#  11 мoдель заказ товара
+class OrderGoods(models.Model):
+    cart = models.OneToOneField(Cart, on_delete=models.PROTECT, related_name='cart')
     created_at = models.DateTimeField(auto_now_add=True)
-    total_order_price = models.DecimalField(max_digits=7, decimal_places=2)
+    total_order_price = models.DecimalField(verbose_name="Стоимость заказа", max_digits=7, decimal_places=2, null=True)
+    tel = models.CharField(verbose_name="Телефон", max_length=13)
+    address = models.TextField(verbose_name="Адрес доставки", max_length=300, null=True)
 
     def __str__(self):
-        return f'Заказ #{self.id} для корзины #{self.cart.id}'
+        return f'Заказ #{self.pk} для корзины #{self.cart.pk}'
+
+
+
 
