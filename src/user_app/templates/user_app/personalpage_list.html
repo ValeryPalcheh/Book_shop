@@ -2,17 +2,22 @@
 
 
 {% block MAIN_CONTENT %}
-<br>
-<br>
-<h1>Привет!</h1>
-<br>
-<br>
 
-{% if user.is_authenticated %}   
-    <h1>{{ user }}</h1>
+{% if user.is_authenticated %} 
+<br>
+<br>
+<h1>Вы авторизованный пользователь: {{ user }} </h1>
+<br>
+<br>
     <th><button type="button" class="btn btn-outline-info"><a href="{% url 'user:logout' %}">Выход из профиля</a></button></th>
     <th><button type="button" class="btn btn-outline-info"><a href="{% url 'user:profile-detail' %}">Просмотр профиля</a></button></th>
+
 {% else %}
+<br>
+<br>
+<h1>Вы не авторизованный пользователь.</h1>
+<br>
+<br>
     <th><button type="button" class="btn btn-outline-info"><a href="{% url 'user:registration' %}">Регистрация нового пользователя</a></button></th>
     <th><button type="button" class="btn btn-outline-info"><a href="{% url 'user:login_entrance' %}">Войти в свой профиль</a></button></th>
 
