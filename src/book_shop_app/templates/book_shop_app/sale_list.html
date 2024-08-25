@@ -1,0 +1,25 @@
+<table>
+       
+    <tr>
+        {% for item in items %}
+        <td colspan=""><a href="{% url 'book_shop:book-detail' item.id %}"><img src="{{ item.cover.url }}" class="img-thumbnail" alt=""></a>
+            <td>{{ item.title }}<br><br>
+                Цена: {{ item.price }} BYN<br>
+                <form action="{% url "orders:add-item-to-cart" %}" method="post">
+                    {% csrf_token %} 
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <div class="mb-2">
+                    <label class="form-label"></label>
+                    <input type="number" name="quantity" required pattern placeholder="Количество:" class="form-control" step="1" min="1">   
+                </div>
+                    <button type="submit" class="btn btn-outline-danger">В корзину</button>  
+                </form></td></td>   
+        {% endfor %}
+    </tr>
+
+</table>
+
+
+
+
+

@@ -13,11 +13,12 @@
     <br>
         <ul>
             {% for book in books %} 
+                {% if book %}
+                найдена:
                 <li>
-                    <h4>"{{ book.title }}" - <button type="button" class="btn btn-outline-info">
-                    <a href="{% url 'book_shop:book-detail' book.pk %}">Перейти к книге</a></button></h4>
-                                        
+                    <h3><button type="button" class="btn btn-outline-info"><a href="{% url 'book_shop:book-detail' book.pk %}">"{{ book.title }}"</a></button></h3>                    
                 </li>
+                {% endif %}
             {% endfor %}           
         </ul>
      

@@ -2,10 +2,51 @@
 
 
 {% block MAIN_CONTENT %}
-<br>
-<br>
-<h1>Привет!</h1>
 
+<div class="header-container">
+    <div class="top-link">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="logo-container span2">
+                    <br>
+                    <span class="logo"><strong><h3>Vitrina.by - книжный Интернет-магазин в Минске с доставкой по всей Беларуси</h3></strong></span>
+                    
+                </div>
+                <div class="span15 link-left">                   
+                    <ul class="phones">
+                    <li>A1:<span class="phone-number desktop">+375 29 123 45 67</span></li>
+                    <li>МТС: <span class="phone-number desktop">+375 33 123 45 67</span></li>
+                    <li>Life: <span class="phone-number desktop">+375 25 123 45 67</span></li>
+                    </ul>                
+                </div>
+                    <div class="span14 link-right">
+                        <ul class="links">
+                        <li><a href="{% url 'user:personal-page-list' %}">Личный кабинет</a></li>
+                        <li><a href="{% url 'orders:view-cart' %}">Моя корзина</a></li>
+                        <li><a href="{% url 'book_shop:search' %}">Поиск книг</a></li>
+                        </ul>
+                            <div class="welcome-msg">Вы наконец заглянули к нам в поисках доброй пары-тройки книг? Мы бесконечно рады! 
+                                Приветствуем, дорогой читатель, в книжном интернет-магазине vitrina.by.
+                                У нас для вас много книг. Для самых разных людей.</div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <br>
+        <h2>Наши подборки для вас:</h2>
+        <br>        
+        {% load group_tags %}
+        <h3>Новинки книг!</h3>       
+            {% newest_items %}    
+        <br>     
+        <br>  
+        <h3>Старинные книги!</h3>
+            {% oldest_items %}
+    </div>    
+
+</div>
 
 
 {% endblock MAIN_CONTENT %}

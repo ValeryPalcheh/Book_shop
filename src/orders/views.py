@@ -126,7 +126,7 @@ def view_cart(request):
     )
 
 
-# 3 функция созд запроса для добавл книги(товара)
+# 3 функция созд запроса для добавл книги(товара):
 def add_item_to_cart_view(request):
     if request.method == "POST":
         add_item_to_cart(request)

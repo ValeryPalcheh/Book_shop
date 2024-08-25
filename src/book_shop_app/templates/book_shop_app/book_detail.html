@@ -80,8 +80,8 @@
         {% csrf_token %}
     <input type="hidden" name="item_id" value="{{ object.id }}">
     <div class="mb-3">
-        <label class="form-label">Количество:</label>
-        <input type="number" name="quantity" class="form-control" step="1" min="1">
+        <label class="form-label">Количество:</label>       
+        <input type="number" required pattern name="quantity" class="form-control" step="1" min="1">      
         <div class="form-text">Выберите количество</div>
       </div>
       <button type="submit" class="btn btn-outline-danger">Добавить</button>
