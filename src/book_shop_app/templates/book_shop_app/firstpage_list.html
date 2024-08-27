@@ -35,14 +35,14 @@
 
     <div>
         <br>
-        <h2>Наши подборки для вас:</h2>
+        <span class="logo"><strong><h2><font color='blue'>Наши подборки для вас:</font></h2></strong></span>
         <br>        
         {% load group_tags %}
-        <h3>Новинки книг!</h3>       
+        <span class="logo"><strong><h3><font color='red'>Новинки книг!</font></h3></strong></span>       
             {% newest_items %}    
         <br>     
-        <br>  
-        <h3>Старинные книги!</h3>
+        <br>
+        <span class="logo"><strong><h3><font color='red'>Старинные книги!</font></h3></strong></span>  
             {% oldest_items %}
     </div>    
 

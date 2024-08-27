@@ -3,7 +3,7 @@
     <tr>
         {% for item in items %}
         <td colspan=""><a href="{% url 'book_shop:book-detail' item.id %}"><img src="{{ item.cover.url }}" class="img-thumbnail" alt=""></a>
-            <td>{{ item.title }}<br><br>
+            <td><br>{{ item.title }}<br>
                 Цена: {{ item.price }} BYN<br>
                 <form action="{% url "orders:add-item-to-cart" %}" method="post">
                     {% csrf_token %} 
