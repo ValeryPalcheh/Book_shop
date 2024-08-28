@@ -21,8 +21,13 @@
                 </div>
                     <div class="span14 link-right">
                         <ul class="links">
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'user:logout' %}">Выход из профиля</a></li>
+                        {% else %}
                         <li><a href="{% url 'user:registration' %}">Регистрация нового пользователя</a></li>
-                        <li><a href="{% url 'user:personal-page-list' %}">Личный кабинет</a></li>
+                        <li><a href="{% url 'user:login_entrance' %}">Войти в свой профиль</a></li>
+                        {% endif %}
+                        <br>
                         <li><a href="{% url 'orders:view-cart' %}">Моя корзина</a></li>
                         <li><a href="{% url 'book_shop:search' %}">Поиск книг</a></li>
                         </ul>
