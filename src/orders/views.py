@@ -6,6 +6,7 @@ from django.views import generic
 from . import models, forms
 from book_shop_app.models import Book
 from user_app.models import Customer
+from orders.models import Cart
 from django.urls import reverse, reverse_lazy
 
 
@@ -71,6 +72,8 @@ def evaluate_cart(request):
         if action == "update":
             return HttpResponseRedirect(reverse_lazy("orders:view-cart"))
         # create_order()   # создать заказ
+        # сделать ограничение на созд пустого заказа
+        
         return HttpResponseRedirect(reverse_lazy("orders:view-order-create"))
 
 
@@ -136,11 +139,13 @@ def add_item_to_cart_view(request):
     return HttpResponseRedirect(reverse_lazy("orders:view-cart"))
 
 
+
+
 # 10 # создать заказ
 class CreateOrderGoodsView(generic.CreateView):
-    model = models.OrderGoods
+    model = models.OrderGoods, Cart
     form_class = forms.CreateOrderGoodsForm
-    template_name = "orders/create_order.html"
+    template_name = "orders/create_order.html"   
     success_url = reverse_lazy('orders:created-page')
 
     def get_context_data(self, **kwargs):
@@ -154,18 +159,34 @@ class CreateOrderGoodsView(generic.CreateView):
         form.fields['address'].initial = get_customer_address(self.request.user)
         return form
     
+
     def form_valid(self, form):
-        ordergoods = form.save(commit=False)
-        ordergoods.cart = get_current_cart(self.request)
-        ordergoods.save()
-        self.object = ordergoods
-        return HttpResponseRedirect(self.get_success_url())
+        cart_id = self.request.session.get('cart_id', None)
+
+        try:
+            ordergoods = models.OrderGoods.objects.get(cart=cart_id)
+            return  HttpResponseRedirect(reverse_lazy('orders:created-new'))
+        
+        except models.OrderGoods.DoesNotExist:
+            ordergoods = form.save(commit=False)
+            ordergoods.cart = get_current_cart(self.request)
+            ordergoods.save()
+            self.object = ordergoods
+            # print('new')
+            return HttpResponseRedirect(self.get_success_url())
+
 
 
 # 14 
 class OrderGoodsCreateView(generic.TemplateView):
-    template_name = "orders/create.html"
+    model = models.OrderGoods
+    template_name = "orders/create_page.html"
 
+
+
+class OrderGoodsCreateViewNew(generic.ListView):
+    model = models.OrderGoods
+    template_name = "orders/create_new.html"
 
 
 class OrderGoodsList(generic.ListView):

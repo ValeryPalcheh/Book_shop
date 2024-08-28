@@ -8,7 +8,7 @@
 <h1>Ваш заказ:</h1>
 <br>
 
-<h3>Книги в Вашем заказе:</h3>
+<h5>Книги в Вашем заказе:</h5>
 
 <table class="table table-hover">
     <tr>
@@ -16,7 +16,7 @@
         <th>Цена за книгу</th>
         <th>Количество</th>
         <th>Итого</th>
-        <th>#</th>
+        {% comment %} <th>#</th> {% endcomment %}
     </tr>
     {% for item_in_cart in cart.items.all %}
     <tr>
@@ -28,7 +28,7 @@
             </div>
         </td>
         <td>{{ item_in_cart.price }}</td>
-        <td>#</td>
+        {% comment %} <td>#</td> {% endcomment %}
     </tr>
     {% endfor %}
     <tr>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model # вместо user
+from django.urls import reverse, reverse_lazy
 
 User = get_user_model() # функция возвр текущую модель юзера в системе
 
@@ -63,7 +64,7 @@ class ItemInCart(models.Model):
         return self.quantity * self.price_per_item
 
     def __str__(self) -> str:
-        return f"Книга: {self.item.title}(ID-{self.item.pk}) в корзине: {self.cart.pk}, количество: {self.quantity}"
+        return f"{self.item.title}(ID-{self.item.pk}) в корзине: {self.cart.pk}, количество: {self.quantity}"
     
 
 
@@ -76,7 +77,7 @@ class OrderGoods(models.Model):
     address = models.TextField(verbose_name="Адрес доставки", max_length=300, null=True)
 
     def __str__(self):
-        return f'Заказ #{self.pk} для корзины #{self.cart.pk}'
+        return f'Заказ:{self.pk} - для корзины - {self.cart.pk}'
 
 
 
