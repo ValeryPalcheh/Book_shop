@@ -20,38 +20,55 @@
 
     <table class="table table-striped">
         <tr>
-            <th>Обложка</th>
-            <th>Артикул</th>
-            <th>Цена</th>
-            <th>Рейтинг</th>
-            <th>Описание</th>
+            <th><center>Обложка</center></th>
+            <th><center>Название</center></th>
+            <th><center>Артикул</center></th>
+            <th><center>Количество книг<br> в наличии</center></th>
+            <th><center>Цена</center></th>
+            <th><center>Рейтинг</center></th>
+            <th><center></center></th>
             
         </tr>
         {% for obj in page_obj %}
         <tr>
-            <th><img src="{{ obj.cover.url }}" class="img-thumbnail" alt=""></th>
-            <th>{{ obj.id }}</th>
-            <th>{{ obj.price }} BYN</th>
-            <th>{{ obj.rating }}</th>
-            <th>           
-            <p>
-            Название книги: {{ obj.title }}
-            <br>
-            <p>
-            <button type="button" class="btn btn-outline-info"><a href="{% url 'book_shop:book-detail' obj.id %}">О книге и оформление покупки</a></button>
-            <br>
-            <p>
+            <th><center><img src="{{ obj.cover.url }}" class="img-thumbnail" alt=""></center></th>
+            <th><center>{{ obj.title }}</center></th>
+            <th><center>{{ obj.id }}</center></th>
+            <th><center>{{ obj.quantity_in_stock }}</center></th>
+            <th><center>{{ obj.price }} BYN</center></th>
+            <th><center>{{ obj.rating }}</center></th>
+            <th>   
+                <div class="mb-1">   
+            <button type="button" class="btn btn-outline-info"><a href="{% url 'book_shop:book-detail' obj.id %}">Подробности</a></button><br>
+                </div>
+
             {% if user.is_authenticated %}
                 {% if user|has_group:"Managers" %}
-                <button type="button" class="btn btn-outline-success"><a href="{% url 'book_shop:book-update' obj.id %}">Редактировать</a></button>
-                <br>
-                <p>
+                <div class="mb-1">
+                <button type="button" class="btn btn-outline-success"><a href="{% url 'book_shop:book-update' obj.id %}">Редактировать</a></button><br>
+                </div>
+                <div class="mb-1">
                 <button type="button" class="btn btn-outline-danger"><a href="{% url 'book_shop:book-delete' obj.id %}">Удалить книгу</a></button>
-            </th> 
+                </div>
                 {% else %}
                     
                 {% endif %}
             {% endif %}
+
+            <form action="{% url "orders:add-item-to-cart" %}" method="post">
+                {% csrf_token %}
+            <input type="hidden" name="item_id" value="{{ obj.id }}">
+            <div class="mb-1">
+                <label class="form-label">Выбрать</label>      
+                <input type="number" required pattern name="quantity" placeholder="Количество:" class="form-control" step="1" min="1">         
+              </div>
+              <button type="submit" class="btn btn-outline-danger">В корзину</button>
+            </form>
+            <p>
+            </th>
+
+
+            
         </tr>
         {% endfor %}
     </table>
