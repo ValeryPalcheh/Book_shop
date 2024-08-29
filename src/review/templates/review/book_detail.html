@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block MAIN_CONTENT %}
+
+
+<h1><font color='blue'>Книга: {{ book.title }}</font></h1>
+<p><font color='blue'>Автор: {{ book.author }}</font></p>
+
+<h3><font color='red'>Все отзывы: </font></h3>
+{% for review in reviews %}
+    <div>
+        <strong>Пользователь: {{ review.user_name }} </strong> поставил ({{ review.rating }} &#9733)
+        <p>отзыв: {{ review.comment }}</p>
+        <small><font color='blue'>Добавлено: {{ review.created_at }}</font></small>  
+    </div>
+    <br>
+{% empty %}
+    <p>Нет отзывов.</p>
+{% endfor %}
+
+<h3>Оставьте отзыв</h3>
+<form action="" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ form|crispy }} 
+    <button type="submit" class="btn btn-outline-danger">Отправить отзыв</button>
+ 
+</form>
+
+
+               
+{% endblock MAIN_CONTENT %}

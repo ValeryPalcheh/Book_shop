@@ -17,7 +17,7 @@
        
 <br>
 <h5>Каталог книг:</h5>
-
+    
     <table class="table table-striped">
         <tr>
             <th><center>Обложка</center></th>
@@ -26,7 +26,7 @@
             <th><center>Количество книг<br> в наличии</center></th>
             <th><center>Цена</center></th>
             <th><center>Рейтинг</center></th>
-            <th><center></center></th>
+            <th><center>Навигация</center></th>
             
         </tr>
         {% for obj in page_obj %}
@@ -39,17 +39,17 @@
             <th><center>{{ obj.rating }}</center></th>
             <th>   
                 <div class="mb-1">   
-            <button type="button" class="btn btn-outline-info"><a href="{% url 'book_shop:book-detail' obj.id %}">Подробности</a></button><br>
+            <button type="button" class="btn btn-outline-info"><a href="{% url 'book_shop:book-detail' obj.id %}">Подробности</a></button>
+            <button type="button" class="btn btn-outline-info"><a href="{% url 'review:book-detail' obj.id %}">Отзывы</a></button><br>
                 </div>
 
             {% if user.is_authenticated %}
                 {% if user|has_group:"Managers" %}
                 <div class="mb-1">
-                <button type="button" class="btn btn-outline-success"><a href="{% url 'book_shop:book-update' obj.id %}">Редактировать</a></button><br>
+                <button type="button" class="btn btn-outline-success"><a href="{% url 'book_shop:book-update' obj.id %}">Изменить</a></button>
+                <button type="button" class="btn btn-outline-danger"><a href="{% url 'book_shop:book-delete' obj.id %}">Удалить</a></button><br>
                 </div>
-                <div class="mb-1">
-                <button type="button" class="btn btn-outline-danger"><a href="{% url 'book_shop:book-delete' obj.id %}">Удалить книгу</a></button>
-                </div>
+                
                 {% else %}
                     
                 {% endif %}

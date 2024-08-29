@@ -48,7 +48,8 @@ INSTALLED_APPS = [
 PROJ_APPS = [
     'book_shop_app',
     'user_app',
-    'orders'
+    'orders',
+    'review'
 ]
 INSTALLED_APPS += PROJ_APPS
 
