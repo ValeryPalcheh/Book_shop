@@ -25,3 +25,5 @@ def book_detail(request, book_id):
         'form': form,
     }
     return render(request, 'review/book_detail.html', context)
+
+

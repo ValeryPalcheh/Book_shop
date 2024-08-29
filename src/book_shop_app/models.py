@@ -46,7 +46,12 @@ class Publisher(models.Model):
 
 
 
-
+def validate_rating(value):
+    if value > 10:
+        raise ValidationError(
+            '%(value)s превышает максимально допустимое значение 10',
+            params={'value': value},
+        )
 
 
 def validate_image_size(image):
@@ -77,7 +82,7 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher, verbose_name='Издательство', on_delete=models.CASCADE, related_name="publishers")
     quantity_in_stock = models.PositiveIntegerField(verbose_name='Количество книг в наличии', default=0)  # Количество книг в наличии
     is_active = models.BooleanField(verbose_name='Доступен для заказа', default=True)  # Доступен для заказа
-    rating = models.FloatField(verbose_name='Рейтинг книги', default=0.0)  # Рейтинг книги
+    rating = models.FloatField(verbose_name='Рейтинг книги', default=0.0, validators=[validate_rating],)  # Рейтинг книги
     date_added = models.DateTimeField(verbose_name='Дата внесения в каталог', auto_now_add=True)  # Дата внесения в каталог
     last_modified = models.DateTimeField(verbose_name='Дата последнего изменения карточки', auto_now=True)  # Дата последнего изменения карточки
 
