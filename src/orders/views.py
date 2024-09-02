@@ -8,6 +8,8 @@ from book_shop_app.models import Book
 from user_app.models import Customer
 from orders.models import Cart
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
 
 
 # 4  получить_или_создать_текущую_корзину (сохраняем в сессии)
@@ -85,6 +87,7 @@ def update_item_in_cart(key, quantity):
     item_in_cart = models.ItemInCart.objects.get(pk=item_in_cart_id)
     if int(quantity) == 0:
         item_in_cart.delete()
+        
     else:
         item_in_cart.quantity = int(quantity)
         item_in_cart.save()
@@ -159,14 +162,13 @@ class CreateOrderGoodsView(generic.CreateView):
         form.fields['address'].initial = get_customer_address(self.request.user)
         return form
     
-
     def form_valid(self, form):
         cart_id = self.request.session.get('cart_id', None)
 
         try:
-            ordergoods = models.OrderGoods.objects.get(cart=cart_id)
-            return  HttpResponseRedirect(reverse_lazy('orders:created-new'))
-        
+            ordergoods = models.OrderGoods.objects.get(cart=cart_id) 
+            return  HttpResponseRedirect(reverse_lazy('orders:cart-order-list'))
+          
         except models.OrderGoods.DoesNotExist:
             ordergoods = form.save(commit=False)
             ordergoods.cart = get_current_cart(self.request)
@@ -174,6 +176,20 @@ class CreateOrderGoodsView(generic.CreateView):
             self.object = ordergoods
             # print('new')
             return HttpResponseRedirect(self.get_success_url())
+
+            
+
+#  просм созданный заказ
+def view_order_cart(request):
+    # cart = get_or_create_current_cart(request)        # корзина будет создаваться без товара
+    cart = get_current_cart(request)                    # 
+    context = {'cart': cart}    
+    return render(
+        request,
+        template_name='orders/cart_list.html',
+        context=context
+    )
+
 
 
 
@@ -192,7 +208,29 @@ class OrderGoodsCreateViewNew(generic.ListView):
 class OrderGoodsList(generic.ListView):
     model = models.OrderGoods
     paginate_by = 20
+
+
+
+class OrderGoodsListDetail(generic.DetailView):
+    model = models.OrderGoods
     
+
+class ItemInCartList(generic.ListView):
+    model = models.ItemInCart
+    paginate_by = 20
+
+
+class ItemInCartDetail(generic.DetailView):
+    model = models.ItemInCart
+
+
+class CartList(generic.ListView):
+    model = models.Cart
+    paginate_by = 20
+
+class CartListDetail(generic.DetailView):
+    model = models.Cart
+
 
 
 

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+<br>
+<br>
+
+<h1>Корзина {{object.id}}</h1>
+
+
+
+{% if object.cart %}
+    
+{% for obj in cart.all %}
+        <ul>
+            <li>hhjj fgg</li>
+        </ul>     
+    {% endfor %}
+
+{% else %}
+<h3>Нет книг у автора</h3>
+
+{% endif %}
+
+                
+{% endblock MAIN_CONTENT %}

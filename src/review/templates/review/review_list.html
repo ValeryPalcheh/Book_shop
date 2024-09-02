@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+<br>
+<br>
+<h5>Обработка отзывов:</h5>
+<br>    
+<table class="table table-striped">
+    <tr>
+        <th>IDномер</th>
+        <th>Покупатель</th>
+        <th>Название книги</th>
+        <th>Рейтинг</th>
+        <th>Коментарий</th>
+        <th>Дата создания</th>
+        <th>Удаление</th>  
+                
+
+    </tr>
+    {% for object in page_obj %}
+    <tr>
+        <th>{{ object.id }}</th>
+        <th>{{ object.user_name }}</th>
+        <th>{{ object.book.title }}</th> 
+        <th>{{ object.rating }}</th>
+        <th>{{ object.comment }}</th>
+        <th>{{ object.created_at }}</th>      
+        <th><button type="button" class="btn btn-outline-danger"><a href="{% url 'review:review-delete' object.id %}">Удалить</a></button></th> 
+        
+    </tr>
+    {% endfor %}
+</table>
+
+ 
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; первый</a>
+                <a href="?page={{ page_obj.previous_page_number }}">предыдущий</a>
+            {% endif %}
+    
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">следующий</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">последний &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock MAIN_CONTENT %}  
+
+
+

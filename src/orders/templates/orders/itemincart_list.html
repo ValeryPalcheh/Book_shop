@@ -1,34 +1,34 @@
 {% extends 'base.html' %}
 
-
+{% load crispy_forms_tags %}
 {% block MAIN_CONTENT %}
-<br>
-<br>
 
-<h5>Покупатели(заказы):</h5>
+<br>
+<br>
+<h5>Все заказанные товары:</h5>
 <br>
     <table class="table table-striped">
         <tr>
-            
-            <th>Корзина и покупатель:</th>
-            <th>Телефон:</th>
-            <th>Адрес доставки:</th>
-            
-              
+            <th>Корзина (покупатель)</th>
+            <th>Дата создания</th>
+            <th>Товар(книга)</th>
+            <th>Количество</th>
+            <th>Цена</th>
+            <th>Стоимость</th>
+
         </tr>
-        {% for object in page_obj %}
+        {% for obj in page_obj %}
         <tr>
+            <th>{{ obj.cart }}</th>
+            <th>{{ obj.created_at }}</th>
+            <th>{{ obj.item.title }}</th>
+            <th>{{ obj.quantity }}</th>
+            <th>{{ obj.price_per_item }}</th>
+            <th>{{ obj.price }}</th>
             
-            <th>{{ object.cart }}</th>
-            <th>{{ object.tel }}</th>
-            <th>{{ object.address }}</th>
-             
         </tr>
         {% endfor %}
     </table>
-
-
-
 
     <div class="pagination">
         <span class="step-links">
@@ -47,7 +47,8 @@
             {% endif %}
         </span>
     </div>
-{% endblock MAIN_CONTENT %}  
+
+    
 
 
-
+{% endblock MAIN_CONTENT %}

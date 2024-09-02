@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+
+<br>
+<br>
+
+<h1>Заказ {{object.id}}</h1>
+
+
+    
+            <li>{{ object.item.title }}</li>
+            <li>{{ object.quantity }}</li>
+            <li>{{ object.price_per_item }}</li>
+            <li>{{ object.price}}</li>
+        
+  
+{% endblock MAIN_CONTENT %}

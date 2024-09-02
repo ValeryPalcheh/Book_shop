@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model # вместо user
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 
 User = get_user_model() # функция возвр текущую модель юзера в системе
 
@@ -33,7 +34,7 @@ class Cart(models.Model):
         return total_order_price
 
     def __str__(self) -> str:
-        return f'Корзина: {self.pk} - для {self.user}'
+        return f'Корзина: {self.pk} ({self.user})'
 
 
 # 6  добавление товаров в корзину
@@ -59,13 +60,17 @@ class ItemInCart(models.Model):
         max_digits=7,
         decimal_places=2,
     )
+    created_at = models.DateTimeField(default=timezone.now)
+
     @property
     def price(self):
         return self.quantity * self.price_per_item
 
     def __str__(self) -> str:
-        return f"{self.item.title}(ID-{self.item.pk}) в корзине: {self.cart.pk}, количество: {self.quantity}"
+        return f"корзина: {self.cart.pk}-товар: {self.id}(создан: {self.created_at}), книга: {self.item.title},  количество: {self.quantity}"
     
+    def get_creation_time(self):
+        return self.created_at
 
 
 #  11 мoдель заказ товара
@@ -75,9 +80,11 @@ class OrderGoods(models.Model):
     total_order_price = models.DecimalField(verbose_name="Стоимость заказа", max_digits=7, decimal_places=2, null=True)
     tel = models.CharField(verbose_name="Телефон", max_length=13)
     address = models.TextField(verbose_name="Адрес доставки", max_length=300, null=True)
+     
 
     def __str__(self):
-        return f'Заказ:{self.pk} - для корзины - {self.cart.pk}'
+        return f'{self.cart}, заказ:{self.pk}'
+    
 
 
 

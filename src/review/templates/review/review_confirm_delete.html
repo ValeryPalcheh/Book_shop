@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+<br>
+<br>
+<h1>Вы действительно хотите удалить отзыв:<br> {{ object }}?</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-danger">Удалить!!!</button>
+    
+</form>
+               
+{% endblock MAIN_CONTENT %}

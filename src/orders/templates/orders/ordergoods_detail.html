@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block MAIN_CONTENT %}
+
+<br>
+<br>
+<h1>Заказ № {{ object.id }}:</h1>
+<br>
+
+<h5>{{ object.cart }}</h5>
+<h5>Телефон:  {{ object.tel }}</h5>
+<h5>Адрес доставки:  {{ object.address }}</h5>
+
+
+{% endblock MAIN_CONTENT %}
