@@ -23,7 +23,7 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Отзыв {self.id} от {self.user_name} на {self.book.title}'
+        return f' от {self.user_name} на книгу "{self.book.title}"'
   
     def get_absolute_url(self):
         return reverse_lazy('review:review-detail', kwargs={"pk": self.pk})
