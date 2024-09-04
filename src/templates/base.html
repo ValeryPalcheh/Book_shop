@@ -123,13 +123,16 @@
                 {% if user.is_authenticated %}
                     {% if user|has_group:"Managers" %}
                     <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'orders:item-in-cart-list' %}">Заказы</a>
+                    <a class="nav-link active" href="{% url 'orders:item-in-cart-list' %}">Корзинки покупателей</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" href="{% url 'orders:order-goods-list' %}">Покупатели</a>
+                      <a class="nav-link active" href="{% url 'orders:order-goods-list' %}">Обработка заказов</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'orders:order-status-list' %}">Обработка статусов</a>
+                        </li>
                     <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'review:review-list' %}">Отзывы</a>
+                    <a class="nav-link active" href="{% url 'review:review-list' %}">Обработка отзывов</a>
                     {% else %}
                     {% endif %}
                 {% endif %}

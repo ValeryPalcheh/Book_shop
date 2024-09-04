@@ -5,12 +5,17 @@
 
 <br>
 <br>
-<h1>Заказ № {{ object.id }}:</h1>
+<h1>Заказ № {{ object.id }}, статуз заказа: {{ object.status_order }}</h1>
 <br>
-
-<h5>{{ object.cart }}</h5>
+<h5>для: {{ object.user }}</h5>
+<h5>корзина: {{ object.cart.id }}</h5>
 <h5>Телефон:  {{ object.tel }}</h5>
 <h5>Адрес доставки:  {{ object.address }}</h5>
-
+<br>
+<br>
+<th><button type="button" class="btn btn-outline-success"><a href="{% url 'orders:order-status-create' %}">Создать статус заказа</a></button></th>
+<br>
+<br>
+<th><button type="button" class="btn btn-outline-success"><a href="{% url 'orders:order-goods-list' %}">Перейти к заказам</a></button></th>
 
 {% endblock MAIN_CONTENT %}

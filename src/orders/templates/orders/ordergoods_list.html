@@ -5,24 +5,34 @@
 <br>
 <br>
 
-<h5>Покупатели(заказы):</h5>
+<h5>Заказы:</h5>
 <br>
     <table class="table table-striped">
         <tr>
-            
-            <th>Корзина и покупатель:</th>
+            <th>Заказ:</th>
+            <th>Покупатель:</th>
+            <th>Корзина:</th>
+            <th>Дата:</th> 
             <th>Телефон:</th>
             <th>Адрес доставки:</th>
+            <th>Изменить заказ:</th>
             
-              
+            <th>Удалить заказ:</th> 
         </tr>
         {% for object in page_obj %}
         <tr>
-            
+            <th>{{ object.id }}</th>
+            <th>{{ object.user }}</th>
             <th>{{ object.cart }}</th>
+            <th>{{ object.created_at }}</th>
             <th>{{ object.tel }}</th>
             <th>{{ object.address }}</th>
-             
+            {% comment %} <th>{{ object.status_order }}</th> {% endcomment %}
+            <th><button type="button" class="btn btn-outline-success"><a href="{% url 'orders:order-goods-update' object.id %}">Изменить</a></button></th>
+            
+            
+            <th><button type="button" class="btn btn-outline-danger"><a href="{% url 'orders:orderdoods-delete' object.id %}">Удалить</a></button></th> 
+            
         </tr>
         {% endfor %}
     </table>

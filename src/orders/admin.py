@@ -6,3 +6,4 @@ from . import models
 admin.site.register(models.Cart)
 admin.site.register(models.ItemInCart)
 admin.site.register(models.OrderGoods)
+admin.site.register(models.OrderStatus)

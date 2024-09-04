@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block MAIN_CONTENT %}
+
+<br>
+<br>
+<h1>Статус заказа для: {{ object.ordergoods }}</h1>
+<br>
+
+<h5>Статус заказа:  {{ object.status }}</h5>
+<h5>Обновлено:  {{ object.updated_at }}</h5>
+<br>
+<br>
+<th><button type="button" class="btn btn-outline-success"><a href="{% url 'orders:order-status-update' object.id %}">Изменить</a></button></th>
+
+
+{% comment %} <th><button type="button" class="btn btn-outline-danger"><a href="{% url 'book_shop:author-delete' object.id %}">Удалить</a></button></th>  {% endcomment %}
+
+{% endblock MAIN_CONTENT %}

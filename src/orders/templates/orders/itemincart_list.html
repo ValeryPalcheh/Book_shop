@@ -15,6 +15,7 @@
             <th>Количество</th>
             <th>Цена</th>
             <th>Стоимость</th>
+            <th>Удаление</th>
 
         </tr>
         {% for obj in page_obj %}
@@ -25,7 +26,8 @@
             <th>{{ obj.quantity }}</th>
             <th>{{ obj.price_per_item }}</th>
             <th>{{ obj.price }}</th>
-            
+            <th><button type="button" class="btn btn-outline-danger"><a href="{% url 'orders:item-in-cart-delete' obj.id %}">Удалить товар</a></button></th> 
+             
         </tr>
         {% endfor %}
     </table>

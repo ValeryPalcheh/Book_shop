@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+<br>
+<br>
+<h1>Статусы ваших заказов:</h1>
+<br>
+    {% for ordergoods in ordergoodss %}
+        <h3>Заказ: {{ ordergoods.id }}, от {{ ordergoods.created_at }}</h3>
+        
+        <h5>Статусы:</h5>
+        <ul>
+            {% for status in ordergoods.statuses.all %}
+                <li>{{ status.status }} (обновлено: {{ status.updated_at }})</li>
+            {% empty %}
+                <li>Нет статусов для этого заказа.</li>
+            {% endfor %}
+        </ul>
+    {% empty %}
+        <p>У вас нет заказов.</p>
+    {% endfor %}
+
+
+{% endblock MAIN_CONTENT %}

@@ -11,7 +11,8 @@
 <br>
     <th><button type="button" class="btn btn-outline-info"><a href="{% url 'user:logout' %}">Выход из профиля</a></button></th>
     <th><button type="button" class="btn btn-outline-info"><a href="{% url 'user:profile-detail' %}">Просмотр профиля</a></button></th>
-
+    <th><button type="button" class="btn btn-outline-info"><a href="{% url 'orders:order-status' %}">Статус заказа</a></button></th>
+    
 {% else %}
 <br>
 <br>
@@ -23,7 +24,7 @@
 
 
 {% endif %}
-<th><button type="button" class="btn btn-outline-info"><a href="{% url 'orders:cart-order-list' %}">Просмотр заказа</a></button></th>
+
 
 
 {% endblock MAIN_CONTENT %}

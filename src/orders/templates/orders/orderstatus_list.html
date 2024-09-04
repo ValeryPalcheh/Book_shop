@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% block MAIN_CONTENT %}
+<br>
+<br>
+<h5>Статусы заказов:</h5>
+<br>
+<table class="table table-striped">
+    <tr>
+        <th>ID статуса:</th>
+        <th>Корзина/Заказ:</th>
+        <th>Статус:</th>
+        <th>Изменение:</th>
+        <th>Удаление:</th>
+        
+
+    </tr>
+    {% for obj in page_obj %}
+    <tr>
+        <th>{{ obj.ordergoods.id }}</th>
+        <th>{{ obj.ordergoods }}</th>
+        <th>{{ obj.status }}</th>
+                
+        <th><button type="button" class="btn btn-outline-success"><a href="{% url 'orders:order-status-update' obj.id %}">Изменить статус</a></button></th>
+        <th><button type="button" class="btn btn-outline-danger"><a href="{% url 'orders:order-status-delete' obj.id %}">Удалить статус</a></button></th> 
+            
+    </tr>
+    {% endfor %}
+</table>
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; первый</a>
+            <a href="?page={{ page_obj.previous_page_number }}">предыдущий</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">следующий</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">последний &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+ 
+
+
+{% endblock MAIN_CONTENT %}

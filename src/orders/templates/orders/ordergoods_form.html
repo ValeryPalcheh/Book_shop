@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block MAIN_CONTENT %}
+<br>
+<br>
+
+    <h1>Изменение данных заказа</h1>
+    <br>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }} 
+        
+    <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+    
+    </form>   
+ 
+    
+
+                
+{% endblock MAIN_CONTENT %}

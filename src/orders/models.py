@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth import get_user_model # вместо user
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 User = get_user_model() # функция возвр текущую модель юзера в системе
 
@@ -34,7 +37,7 @@ class Cart(models.Model):
         return total_order_price
 
     def __str__(self) -> str:
-        return f'Корзина: {self.pk} ({self.user})'
+        return f'№ {self.pk} ({self.user})'
 
 
 # 6  добавление товаров в корзину
@@ -67,25 +70,65 @@ class ItemInCart(models.Model):
         return self.quantity * self.price_per_item
 
     def __str__(self) -> str:
-        return f"корзина: {self.cart.pk}-товар: {self.id}(создан: {self.created_at}), книга: {self.item.title},  количество: {self.quantity}"
+        return f"корзина: {self.cart.pk}-товар: {self.id}, книга: {self.item.title},  количество: {self.quantity}"
     
     def get_creation_time(self):
         return self.created_at
 
 
+
+
 #  11 мoдель заказ товара
 class OrderGoods(models.Model):
-    cart = models.OneToOneField(Cart, on_delete=models.PROTECT, related_name='cart')
+    # STATUS_CHOICES = [
+    #     ('ожидает обработки', 'ожидает обработки'),
+    #     ('отправлен', 'отправлен'),
+    #     ('доставлен', 'доставлен'),
+    #     ('получен покупателем', 'получен покупателем'),
+    #     ('отменен', 'отменен'),
+    # ]
+    # user = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, verbose_name="Покупатель", )
+    user = models.CharField(verbose_name='Покупатель', default='', max_length=20)
+    cart = models.OneToOneField(Cart, on_delete=models.PROTECT, related_name='cart', verbose_name="Корзина")
     created_at = models.DateTimeField(auto_now_add=True)
-    total_order_price = models.DecimalField(verbose_name="Стоимость заказа", max_digits=7, decimal_places=2, null=True)
+    # status_order = models.CharField(verbose_name="Статус", default="ожидает обработки", max_length=20, choices=STATUS_CHOICES)
+    #total_order_price = models.DecimalField(verbose_name="Стоимость заказа", max_digits=7, decimal_places=2, null=True)
     tel = models.CharField(verbose_name="Телефон", max_length=13)
     address = models.TextField(verbose_name="Адрес доставки", max_length=300, null=True)
-     
+    
 
     def __str__(self):
         return f'{self.cart}, заказ:{self.pk}'
     
+    def get_absolute_url(self):
+        return reverse_lazy('orders:orderdoods-detail', kwargs={"pk": self.pk})
+    
+# автоматич создается статус
+@receiver(post_save, sender=OrderGoods)
+def create_order_status(sender, instance, created, **kwargs):
+    if created:
+        OrderStatus.objects.create(ordergoods=instance)
 
+
+class OrderStatus(models.Model):
+    STATUS_CHOICES = [
+        ('ожидает обработки', 'ожидает обработки'),
+        ('отправлен', 'отправлен'),
+        ('доставлен', 'доставлен'),
+        ('товар получен', 'товар получен'),
+        ('отменен', 'отменен'),
+    ]
+
+    ordergoods = models.ForeignKey(OrderGoods, verbose_name="Заказ покупателя", on_delete=models.PROTECT, related_name='statuses')
+    status = models.CharField(verbose_name="Статус", default="ожидает обработки", max_length=20, choices=STATUS_CHOICES)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.pk}-{self.ordergoods}-{self.status}'
+
+    def get_absolute_url(self):
+        return reverse_lazy('orders:order-status-detail', kwargs={"pk": self.pk})
+    
 
 
 

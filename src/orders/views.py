@@ -6,10 +6,10 @@ from django.views import generic
 from . import models, forms
 from book_shop_app.models import Book
 from user_app.models import Customer
-from orders.models import Cart
+from orders.models import Cart, OrderGoods, OrderStatus
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-
+from django.shortcuts import render, get_object_or_404
 
 
 # 4  получить_или_создать_текущую_корзину (сохраняем в сессии)
@@ -94,10 +94,9 @@ def update_item_in_cart(key, quantity):
 
 
 
-# 10 # создать заказ
-# def create_order():
-    # cart = get_current_cart(request)
-    # pass
+
+
+
 
 
 # 12 достать телефон покупателя
@@ -118,6 +117,14 @@ def get_customer_address(user):
         address = user.profile.address
     return address
 
+
+#  достать usera
+def get_create_user(user):
+    if not user.is_authenticated:
+        user = None
+    else:
+        user = user
+    return user
 
 
 # 2 просм корзины
@@ -150,6 +157,7 @@ class CreateOrderGoodsView(generic.CreateView):
     form_class = forms.CreateOrderGoodsForm
     template_name = "orders/create_order.html"   
     success_url = reverse_lazy('orders:created-page')
+    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -158,16 +166,19 @@ class CreateOrderGoodsView(generic.CreateView):
     
     def get_form(self, **kwargs):
         form = super().get_form(**kwargs)
+        form.fields['user'].initial = get_create_user(self.request.user)
         form.fields['tel'].initial = get_customer_tel(self.request.user)
         form.fields['address'].initial = get_customer_address(self.request.user)
         return form
+        
+            
     
     def form_valid(self, form):
         cart_id = self.request.session.get('cart_id', None)
 
         try:
             ordergoods = models.OrderGoods.objects.get(cart=cart_id) 
-            return  HttpResponseRedirect(reverse_lazy('orders:cart-order-list'))
+            return  HttpResponseRedirect(reverse_lazy('orders:created-page'))
           
         except models.OrderGoods.DoesNotExist:
             ordergoods = form.save(commit=False)
@@ -207,13 +218,26 @@ class OrderGoodsCreateViewNew(generic.ListView):
 
 class OrderGoodsList(generic.ListView):
     model = models.OrderGoods
-    paginate_by = 20
-
+    paginate_by = 10
 
 
 class OrderGoodsListDetail(generic.DetailView):
     model = models.OrderGoods
     
+
+class OrderGoodsUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):     #LoginRequiredMixin, PermissionRequiredMixin, 
+    permission_required = 'orders.change_ordergoods'
+    login_url = reverse_lazy('user:login')
+    model = models.OrderGoods
+    fields = ['user', 'tel', 'address', ]
+
+class OrderGoodsDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView): #LoginRequiredMixin, PermissionRequiredMixin, 
+    permission_required = 'orders.delete_ordergoods'
+    login_url = reverse_lazy('user:login')
+    model = models.OrderGoods
+    success_url = reverse_lazy('orders:order-goods-list')
+
+
 
 class ItemInCartList(generic.ListView):
     model = models.ItemInCart
@@ -222,6 +246,16 @@ class ItemInCartList(generic.ListView):
 
 class ItemInCartDetail(generic.DetailView):
     model = models.ItemInCart
+
+class ItemInCartDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):  #LoginRequiredMixin, PermissionRequiredMixin, 
+    permission_required = 'orders.delete_itemincart'
+    login_url = reverse_lazy('user:login')
+    model = models.ItemInCart
+    success_url = reverse_lazy('orders:item-in-cart-list')
+
+
+
+
 
 
 class CartList(generic.ListView):
@@ -233,6 +267,57 @@ class CartListDetail(generic.DetailView):
 
 
 
+
+
+class OrderStatusList(generic.ListView):
+    model = OrderStatus
+    paginate_by = 20
+
+class OrderStatusDetail(generic.DetailView):
+    model = OrderStatus
+
+
+class OrderStatusCreate(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):       #LoginRequiredMixin, PermissionRequiredMixin, 
+    #permission_required = 'book_shop_app.add_publisher'
+    #login_url = reverse_lazy('user:login')
+    model = models.OrderStatus
+    fields = ['ordergoods', 'status',]
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Создание статуса:"
+        return context
+
+
+class OrderStatusUpdate(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):          #LoginRequiredMixin, PermissionRequiredMixin, 
+    permission_required = 'orders.change_orderstatus'
+    login_url = reverse_lazy('user:login')
+    model = models.OrderStatus
+    fields = ['ordergoods', 'status',]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = "Изменение статуса:"
+        return context
+
+
+class OrderStatusDelete(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):  #LoginRequiredMixin, PermissionRequiredMixin, 
+    permission_required = 'orders.delete_orderstatus'
+    login_url = reverse_lazy('user:login')
+    model = models.OrderStatus
+    success_url = reverse_lazy('orders:order-status-list')
+
+
+
+
+def order_status_list(request):
+    if request.user.is_anonymous:
+        user = None                 
+    else:
+        user = request.user   
+    # Получаем все заказы и их статусы для текущего пользователя
+    ordergoodss = OrderGoods.objects.filter(user=user).prefetch_related('statuses')
+    return render(request, 'orders/order_status_list.html', {'ordergoodss': ordergoodss})
 
 
 
