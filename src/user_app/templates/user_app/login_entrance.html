@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-
+{% load crispy_forms_tags %}
 {% block MAIN_CONTENT %}
 <br>
 <br>
     <h2>Вход</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }} 
         <button type="submit">Войти</button>
     </form>
     {% if messages %}
