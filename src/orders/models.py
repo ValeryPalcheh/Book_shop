@@ -80,19 +80,9 @@ class ItemInCart(models.Model):
 
 #  11 мoдель заказ товара
 class OrderGoods(models.Model):
-    # STATUS_CHOICES = [
-    #     ('ожидает обработки', 'ожидает обработки'),
-    #     ('отправлен', 'отправлен'),
-    #     ('доставлен', 'доставлен'),
-    #     ('получен покупателем', 'получен покупателем'),
-    #     ('отменен', 'отменен'),
-    # ]
-    # user = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, verbose_name="Покупатель", )
     user = models.CharField(verbose_name='Покупатель', default='', max_length=20)
     cart = models.OneToOneField(Cart, on_delete=models.PROTECT, related_name='cart', verbose_name="Корзина")
     created_at = models.DateTimeField(auto_now_add=True)
-    # status_order = models.CharField(verbose_name="Статус", default="ожидает обработки", max_length=20, choices=STATUS_CHOICES)
-    #total_order_price = models.DecimalField(verbose_name="Стоимость заказа", max_digits=7, decimal_places=2, null=True)
     tel = models.CharField(verbose_name="Телефон", max_length=13)
     address = models.TextField(verbose_name="Адрес доставки", max_length=300, null=True)
     
